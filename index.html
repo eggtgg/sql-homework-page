@@ -152,5 +152,37 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Xử lý click cho các nút trong hero section
+        document.querySelectorAll('.hero-buttons a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    const targetId = href.substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Kiểm tra và scroll đến hash sau khi trang load
+        window.addEventListener('load', function() {
+            const hash = sessionStorage.getItem('scrollToHash');
+            if (hash) {
+                const element = document.getElementById(hash);
+                if (element) {
+                    // Thêm một chút delay để đảm bảo trang đã render hoàn toàn
+                    setTimeout(() => {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                }
+                // Xóa hash khỏi sessionStorage sau khi đã scroll
+                sessionStorage.removeItem('scrollToHash');
+            }
+        });
+    </script>
 </body>
 </html> 

@@ -366,6 +366,35 @@ INSERT INTO sales (customer_id, product_name, sale_date, amount, quantity, regio
                 }, 2000);
             });
         }
+
+        // Xử lý scroll khi click vào các liên kết trong navbar
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                if (href.includes('#')) {
+                    const [path, hash] = href.split('#');
+                    // Lưu hash vào sessionStorage trước khi chuyển trang
+                    sessionStorage.setItem('scrollToHash', hash);
+                    window.location.href = path;
+                } else {
+                    window.location.href = href;
+                }
+            });
+        });
+
+        // Kiểm tra và scroll đến hash sau khi trang load
+        window.addEventListener('load', function() {
+            const hash = sessionStorage.getItem('scrollToHash');
+            if (hash) {
+                const element = document.getElementById(hash);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+                // Xóa hash khỏi sessionStorage sau khi đã scroll
+                sessionStorage.removeItem('scrollToHash');
+            }
+        });
     </script>
 </body>
 </html> 
