@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài tập 1: Truy vấn cơ bản - SQL Exercises</title>
+    <title>Bài giải 2: Aggregate Functions với GROUP BY và HAVING - SQL Exercises</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
@@ -94,21 +94,6 @@
 
         .btn i {
             font-size: 1.1rem;
-        }
-
-        @media (max-width: 768px) {
-            .post-content {
-                padding: 2rem 1.5rem;
-                margin: 1rem;
-            }
-
-            .post-content h1 {
-                font-size: 2rem;
-            }
-
-            .post-content h2 {
-                font-size: 1.5rem;
-            }
         }
 
         .code-block {
@@ -212,6 +197,21 @@
             color: #6c5ce7;
             font-weight: 600;
         }
+
+        @media (max-width: 768px) {
+            .post-content {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+
+            .post-content h1 {
+                font-size: 2rem;
+            }
+
+            .post-content h2 {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -235,58 +235,161 @@
                 Quay lại trang chủ
             </a>
             
-            <h1>Bài tập 1: Truy vấn cơ bản</h1>
+            <h1>Bài giải 2: Aggregate Functions với GROUP BY và HAVING</h1>
             
-            <h2>Mô tả bài tập</h2>
-            <p>Trong bài tập này, chúng ta sẽ thực hành các câu truy vấn SQL cơ bản với bảng Employees có cấu trúc như sau:</p>
+            <h2>Bài tập 1: Truy vấn cơ bản</h2>
             
+            <h3>1. Xem toàn bộ dữ liệu trong bảng sales</h3>
             <div class="sql-code">
                 <div class="code-block">
                     <button class="copy-button" onclick="copyCode(this)">
                         <i class="far fa-copy"></i>
                         Copy
                     </button>
-                    <pre><code class="language-sql">CREATE TABLE employees (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    department VARCHAR(50) NOT NULL,
-    salary DECIMAL(10,2) NOT NULL,
-    hire_date DATE NOT NULL,
-    CONSTRAINT employees_pk PRIMARY KEY (id)
-);</code></pre>
+                    <pre><code class="language-sql">SELECT * FROM sales;</code></pre>
                 </div>
             </div>
+            <p>Giải thích: Câu truy vấn này sẽ hiển thị tất cả các cột và hàng trong bảng sales.</p>
 
-            <h2>Yêu cầu</h2>
+            <h3>2. Tìm tổng doanh thu cho mỗi khách hàng</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT 
+    customer_id,
+    sum(amount) AS total_revenue
+FROM sales
+GROUP BY customer_id
+ORDER BY total_revenue DESC;</code></pre>
+                </div>
+            </div>
+            <p>Giải thích: Chúng ta sử dụng GROUP BY để nhóm các giao dịch theo customer_id, sau đó tính tổng doanh thu bằng hàm sum(). Kết quả được sắp xếp theo tổng doanh thu giảm dần.</p>
+
+            <h3>3. Đếm tổng số giao dịch cho mỗi khu vực</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT 
+    region,
+    count(*) AS transaction_count
+FROM sales
+GROUP BY region
+ORDER BY transaction_count DESC;</code></pre>
+                </div>
+            </div>
+            <p>Giải thích: Sử dụng count(*) để đếm số lượng giao dịch cho mỗi khu vực. Kết quả được sắp xếp theo số lượng giao dịch giảm dần.</p>
+
+            <h3>4. Đếm tổng số giao dịch cho mỗi sản phẩm</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT 
+    product_name,
+    count(*) AS transaction_count
+FROM sales
+GROUP BY product_name
+ORDER BY transaction_count DESC;</code></pre>
+                </div>
+            </div>
+            <p>Giải thích: Tương tự như câu truy vấn trước, nhưng nhóm theo product_name thay vì region.</p>
+
+            <h2>Bài tập 2: Lọc nhóm với HAVING</h2>
+
+            <h3>1. Tìm khách hàng có tổng doanh thu lớn hơn 1500</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT 
+    customer_id,
+    sum(amount) AS total_revenue
+FROM sales
+GROUP BY customer_id
+HAVING sum(amount) > 1500
+ORDER BY total_revenue DESC;</code></pre>
+                </div>
+            </div>
+            <p>Giải thích: Sử dụng HAVING để lọc các nhóm có tổng doanh thu lớn hơn 1500. Lưu ý rằng chúng ta không thể sử dụng WHERE ở đây vì nó chỉ lọc các hàng riêng lẻ, không phải các nhóm.</p>
+
+            <h3>2. Tìm khu vực có tổng số giao dịch lớn hơn 4</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT 
+    region,
+    count(*) AS transaction_count
+FROM sales
+GROUP BY region
+HAVING count(*) > 4
+ORDER BY transaction_count DESC;</code></pre>
+                </div>
+            </div>
+            <p>Giải thích: Sử dụng HAVING để lọc các khu vực có số lượng giao dịch lớn hơn 4.</p>
+
+            <h3>3. Tìm sản phẩm có tổng số lượng bán được nhỏ hơn 5</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT 
+    product_name,
+    sum(quantity) AS total_quantity
+FROM sales
+GROUP BY product_name
+HAVING sum(quantity) < 5
+ORDER BY total_quantity ASC;</code></pre>
+                </div>
+            </div>
+            <p>Giải thích: Sử dụng HAVING để lọc các sản phẩm có tổng số lượng bán được nhỏ hơn 5.</p>
+
+            <h2>Bài tập 3: Kết hợp WHERE và HAVING</h2>
+
+            <h3>Tìm tổng doanh thu và số lượng giao dịch cho mỗi khu vực sau ngày 2023-01-17</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT 
+    region,
+    sum(amount) AS total_revenue,
+    count(*) AS transaction_count
+FROM sales
+WHERE sale_date > '2023-01-17'
+GROUP BY region
+HAVING sum(amount) > 1300
+ORDER BY total_revenue DESC;</code></pre>
+                </div>
+            </div>
+            <p>Giải thích: Trong câu truy vấn này, chúng ta:</p>
             <ol>
-                <li>Viết câu truy vấn để lấy danh sách tất cả nhân viên</li>
-                <li>Viết câu truy vấn để lấy danh sách nhân viên trong phòng IT</li>
-                <li>Viết câu truy vấn để tính lương trung bình của mỗi phòng ban</li>
+                <li>Sử dụng WHERE để lọc các giao dịch sau ngày 2023-01-17</li>
+                <li>Nhóm kết quả theo region</li>
+                <li>Sử dụng HAVING để lọc các khu vực có tổng doanh thu lớn hơn 1300</li>
+                <li>Sắp xếp kết quả theo tổng doanh thu giảm dần</li>
             </ol>
 
-            <h2>Dữ liệu mẫu</h2>
-            <div class="sql-code">
-                <div class="code-block">
-                    <button class="copy-button" onclick="copyCode(this)">
-                        <i class="far fa-copy"></i>
-                        Copy
-                    </button>
-                    <pre><code class="language-sql">INSERT INTO employees (name, department, salary, hire_date) VALUES
-    ('Nguyễn Văn A', 'IT', 15000000.00, '2020-01-15'),
-    ('Trần Thị B', 'HR', 12000000.00, '2019-05-20'),
-    ('Lê Văn C', 'IT', 18000000.00, '2021-03-10'),
-    ('Phạm Thị D', 'Sales', 14000000.00, '2020-11-05'),
-    ('Hoàng Văn E', 'IT', 16000000.00, '2019-08-15');</code></pre>
-                </div>
-            </div>
-
-            <h2>Gợi ý</h2>
-            <p>Hãy thử tự giải quyết các yêu cầu trên trước khi xem đáp án. Sử dụng các câu lệnh SELECT, FROM, WHERE, và GROUP BY.</p>
-
             <div class="navigation">
-                <a href="bai-giai-1.html" class="btn">
-                    <i class="fas fa-code"></i>
-                    Xem bài giải
+                <a href="bai-tap-2.html" class="btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Quay lại bài tập
                 </a>
             </div>
         </article>

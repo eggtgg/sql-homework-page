@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài tập 1: Truy vấn cơ bản - SQL Exercises</title>
+    <title>Bài tập 2: Aggregate Functions với GROUP BY và HAVING - SQL Exercises</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
@@ -94,21 +94,6 @@
 
         .btn i {
             font-size: 1.1rem;
-        }
-
-        @media (max-width: 768px) {
-            .post-content {
-                padding: 2rem 1.5rem;
-                margin: 1rem;
-            }
-
-            .post-content h1 {
-                font-size: 2rem;
-            }
-
-            .post-content h2 {
-                font-size: 1.5rem;
-            }
         }
 
         .code-block {
@@ -212,6 +197,21 @@
             color: #6c5ce7;
             font-weight: 600;
         }
+
+        @media (max-width: 768px) {
+            .post-content {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+
+            .post-content h1 {
+                font-size: 2rem;
+            }
+
+            .post-content h2 {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -235,10 +235,10 @@
                 Quay lại trang chủ
             </a>
             
-            <h1>Bài tập 1: Truy vấn cơ bản</h1>
+            <h1>Bài tập 2: Aggregate Functions với GROUP BY và HAVING</h1>
             
             <h2>Mô tả bài tập</h2>
-            <p>Trong bài tập này, chúng ta sẽ thực hành các câu truy vấn SQL cơ bản với bảng Employees có cấu trúc như sau:</p>
+            <p>Trong bài tập này, chúng ta sẽ thực hành các câu truy vấn SQL sử dụng GROUP BY và HAVING với bảng sales (bán hàng). Bảng này chứa thông tin về các giao dịch bán hàng, rất phù hợp để nhóm dữ liệu theo khách hàng, sản phẩm, khu vực, v.v., và tính toán tổng doanh thu, số lượng mặt hàng đã bán.</p>
             
             <div class="sql-code">
                 <div class="code-block">
@@ -246,45 +246,71 @@
                         <i class="far fa-copy"></i>
                         Copy
                     </button>
-                    <pre><code class="language-sql">CREATE TABLE employees (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    department VARCHAR(50) NOT NULL,
-    salary DECIMAL(10,2) NOT NULL,
-    hire_date DATE NOT NULL,
-    CONSTRAINT employees_pk PRIMARY KEY (id)
-);</code></pre>
+                    <pre><code class="language-sql">-- Xóa bảng nếu nó đã tồn tại
+DROP TABLE IF EXISTS sales;
+
+-- Tạo bảng sales
+CREATE TABLE sales (
+    sale_id SERIAL PRIMARY KEY,
+    customer_id INT NOT NULL,
+    product_name VARCHAR(100) NOT NULL,
+    sale_date DATE NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    quantity INT NOT NULL,
+    region VARCHAR(50) NOT NULL
+);
+
+-- Thêm dữ liệu mẫu
+INSERT INTO sales (customer_id, product_name, sale_date, amount, quantity, region) VALUES
+(1, 'Laptop', '2023-01-15', 1200.00, 1, 'North'),
+(2, 'Mouse', '2023-01-15', 25.00, 2, 'South'),
+(1, 'Keyboard', '2023-01-16', 75.00, 1, 'North'),
+(3, 'Laptop', '2023-01-16', 1200.00, 1, 'Central'),
+(2, 'Monitor', '2023-01-17', 300.00, 1, 'South'),
+(1, 'Mouse', '2023-01-17', 25.00, 2, 'North'),
+(4, 'Keyboard', '2023-01-18', 75.00, 1, 'North'),
+(3, 'Mouse', '2023-01-18', 25.00, 3, 'Central'),
+(1, 'Monitor', '2023-01-19', 300.00, 1, 'North'),
+(2, 'Laptop', '2023-01-19', 1200.00, 1, 'South'),
+(4, 'Monitor', '2023-01-20', 300.00, 1, 'North'),
+(5, 'Mouse', '2023-01-20', 25.00, 1, 'Central'),
+(1, 'Laptop', '2023-01-21', 1200.00, 1, 'North'),
+(3, 'Keyboard', '2023-01-21', 75.00, 1, 'Central'),
+(5, 'Laptop', '2023-01-22', 1200.00, 1, 'Central');</code></pre>
                 </div>
             </div>
 
             <h2>Yêu cầu</h2>
+            <h3>Bài tập 1: Truy vấn cơ bản</h3>
+            <p>Hãy viết các câu truy vấn để:</p>
             <ol>
-                <li>Viết câu truy vấn để lấy danh sách tất cả nhân viên</li>
-                <li>Viết câu truy vấn để lấy danh sách nhân viên trong phòng IT</li>
-                <li>Viết câu truy vấn để tính lương trung bình của mỗi phòng ban</li>
+                <li>Xem toàn bộ dữ liệu trong bảng sales.</li>
+                <li>Tìm tổng doanh thu (amount) cho mỗi khách hàng (customer_id).</li>
+                <li>Đếm tổng số giao dịch (các hàng) cho mỗi khu vực (region).</li>
+                <li>Đếm tổng số giao dịch (các hàng) cho mỗi tên sản phẩm (product_name).</li>
             </ol>
 
-            <h2>Dữ liệu mẫu</h2>
-            <div class="sql-code">
-                <div class="code-block">
-                    <button class="copy-button" onclick="copyCode(this)">
-                        <i class="far fa-copy"></i>
-                        Copy
-                    </button>
-                    <pre><code class="language-sql">INSERT INTO employees (name, department, salary, hire_date) VALUES
-    ('Nguyễn Văn A', 'IT', 15000000.00, '2020-01-15'),
-    ('Trần Thị B', 'HR', 12000000.00, '2019-05-20'),
-    ('Lê Văn C', 'IT', 18000000.00, '2021-03-10'),
-    ('Phạm Thị D', 'Sales', 14000000.00, '2020-11-05'),
-    ('Hoàng Văn E', 'IT', 16000000.00, '2019-08-15');</code></pre>
-                </div>
-            </div>
+            <h3>Bài tập 2: Lọc nhóm với HAVING</h3>
+            <p>Hãy viết các câu truy vấn để:</p>
+            <ol>
+                <li>Tìm các khách hàng (customer_id) có tổng doanh thu (sum(amount)) lớn hơn 1500, và sắp xếp kết quả theo tổng doanh thu giảm dần.</li>
+                <li>Tìm các khu vực (region) có tổng số giao dịch (count(*)) lớn hơn 4.</li>
+                <li>Tìm các sản phẩm (product_name) có tổng số lượng bán được (sum(quantity)) nhỏ hơn 5.</li>
+            </ol>
+
+            <h3>Bài tập 3: Kết hợp WHERE và HAVING</h3>
+            <p>Hãy viết câu truy vấn để:</p>
+            <ol>
+                <li>Tìm tổng doanh thu (sum(amount)) và số lượng giao dịch (count(region)) cho mỗi khu vực (region).</li>
+                <li>Chỉ xét các giao dịch xảy ra sau ngày '2023-01-17'.</li>
+                <li>Chỉ hiển thị các khu vực có tổng doanh thu trên 1300.</li>
+            </ol>
 
             <h2>Gợi ý</h2>
-            <p>Hãy thử tự giải quyết các yêu cầu trên trước khi xem đáp án. Sử dụng các câu lệnh SELECT, FROM, WHERE, và GROUP BY.</p>
+            <p>Hãy thử tự giải quyết các yêu cầu trên trước khi xem đáp án. Lưu ý sự khác biệt giữa WHERE (lọc hàng) và HAVING (lọc nhóm).</p>
 
             <div class="navigation">
-                <a href="bai-giai-1.html" class="btn">
+                <a href="bai-giai-2.html" class="btn">
                     <i class="fas fa-code"></i>
                     Xem bài giải
                 </a>

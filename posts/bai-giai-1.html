@@ -5,28 +5,242 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bài giải 1: Truy vấn cơ bản - SQL Exercises</title>
     <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
     <style>
         .post-content {
             max-width: 800px;
             margin: 0 auto;
-            padding: 2rem;
-        }
-        .sql-code {
-            background-color: #f8f9fa;
-            padding: 1rem;
-            border-radius: 4px;
-            font-family: 'Courier New', Courier, monospace;
-            margin: 1rem 0;
-        }
-        .back-link {
-            display: inline-block;
+            padding: 3rem 2rem;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-top: 2rem;
             margin-bottom: 2rem;
         }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            color: var(--accent-color);
+            transform: translateX(-5px);
+        }
+
+        .post-content h1 {
+            font-size: 2.5rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .post-content h2 {
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin: 2rem 0 1rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .post-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--gradient-secondary);
+            border-radius: 2px;
+        }
+
+        .post-content p {
+            color: #636e72;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
         .explanation {
-            background-color: #e8f4f8;
-            padding: 1rem;
+            background: linear-gradient(to right, rgba(9, 132, 227, 0.05), rgba(9, 132, 227, 0.02));
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--secondary-color);
+            box-shadow: var(--shadow);
+        }
+
+        .explanation p {
+            color: var(--text-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .explanation ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .explanation ul li {
+            color: #636e72;
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .explanation ul li::before {
+            content: '•';
+            color: var(--secondary-color);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .navigation {
+            margin-top: 3rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn i {
+            font-size: 1.1rem;
+        }
+
+        .result-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .code-block {
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .code-block pre {
+            margin: 0;
+            border-radius: var(--border-radius);
+            background: #f8f9fa !important;
+            border: 1px solid #e9ecef;
+        }
+
+        .code-block code {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #2d3436;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 0, 0, 0.05);
+            border: none;
             border-radius: 4px;
-            margin: 1rem 0;
+            color: #2d3436;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .copy-button:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .copy-button i {
+            font-size: 1rem;
+        }
+
+        .copy-button.copied {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .sql-code {
+            background: none;
+            padding: 0;
+            border: none;
+            box-shadow: none;
+        }
+
+        .sql-code::before {
+            display: none;
+        }
+
+        /* Custom Prism.js theme overrides */
+        .token.comment,
+        .token.prolog,
+        .token.doctype,
+        .token.cdata {
+            color: #6c757d;
+        }
+
+        .token.punctuation {
+            color: #2d3436;
+        }
+
+        .token.property,
+        .token.tag,
+        .token.boolean,
+        .token.number,
+        .token.constant,
+        .token.symbol {
+            color: #0984e3;
+        }
+
+        .token.selector,
+        .token.attr-name,
+        .token.string,
+        .token.char,
+        .token.builtin {
+            color: #00b894;
+        }
+
+        .token.operator,
+        .token.entity,
+        .token.url,
+        .language-css .token.string,
+        .style .token.string {
+            color: #e17055;
+        }
+
+        .token.keyword {
+            color: #6c5ce7;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .post-content {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+
+            .post-content h1 {
+                font-size: 2rem;
+            }
+
+            .post-content h2 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -34,7 +248,7 @@
     <header>
         <nav>
             <div class="container">
-                <h1>SQL Exercises and Solutions</h1>
+                <h1><i class="fas fa-database"></i> SQL Exercises</h1>
                 <ul>
                     <li><a href="../index.html#home">Trang chủ</a></li>
                     <li><a href="../index.html#exercises">Bài tập</a></li>
@@ -46,13 +260,29 @@
 
     <main>
         <article class="post-content">
-            <a href="../index.html" class="back-link">← Quay lại trang chủ</a>
+            <a href="../index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Quay lại trang chủ
+            </a>
             
             <h1>Bài giải 1: Truy vấn cơ bản</h1>
 
             <h2>1. Lấy danh sách tất cả nhân viên</h2>
             <div class="sql-code">
-                SELECT * FROM Employees;
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT 
+    id,
+    name,
+    department,
+    salary,
+    hire_date
+FROM employees
+ORDER BY id;</code></pre>
+                </div>
             </div>
             <div class="explanation">
                 <p>Giải thích:</p>
@@ -64,8 +294,21 @@
 
             <h2>2. Lấy danh sách nhân viên trong phòng IT</h2>
             <div class="sql-code">
-                SELECT * FROM Employees
-                WHERE department = 'IT';
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT 
+    id,
+    name,
+    department,
+    salary,
+    hire_date
+FROM employees
+WHERE department = 'IT'
+ORDER BY name;</code></pre>
+                </div>
             </div>
             <div class="explanation">
                 <p>Giải thích:</p>
@@ -77,11 +320,19 @@
 
             <h2>3. Tính lương trung bình của mỗi phòng ban</h2>
             <div class="sql-code">
-                SELECT 
-                    department,
-                    AVG(salary) as average_salary
-                FROM Employees
-                GROUP BY department;
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT 
+    department,
+    round(avg(salary), 2) AS average_salary,
+    count(*) AS employee_count
+FROM employees
+GROUP BY department
+ORDER BY average_salary DESC;</code></pre>
+                </div>
             </div>
             <div class="explanation">
                 <p>Giải thích:</p>
@@ -92,41 +343,97 @@
                 </ul>
             </div>
 
-            <h2>Kết quả mẫu</h2>
-            <div class="sql-code">
-                -- Kết quả câu 1:
-                id | name        | department | salary    | hire_date
-                1  | Nguyễn Văn A| IT        | 15000000  | 2020-01-15
-                2  | Trần Thị B  | HR        | 12000000  | 2019-05-20
-                3  | Lê Văn C    | IT        | 18000000  | 2021-03-10
-                4  | Phạm Thị D  | Sales     | 14000000  | 2020-11-05
-                5  | Hoàng Văn E | IT        | 16000000  | 2019-08-15
+            <div class="result-section">
+                <h2>Kết quả mẫu</h2>
+                <div class="sql-code">
+                    <div class="code-block">
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <i class="far fa-copy"></i>
+                            Copy
+                        </button>
+                        <pre><code class="language-sql">-- Kết quả câu 1:
+ id | name        | department | salary    | hire_date
+----|-------------|------------|-----------|------------
+  1 | Nguyễn Văn A| IT        | 15000000  | 2020-01-15
+  2 | Trần Thị B  | HR        | 12000000  | 2019-05-20
+  3 | Lê Văn C    | IT        | 18000000  | 2021-03-10
+  4 | Phạm Thị D  | Sales     | 14000000  | 2020-11-05
+  5 | Hoàng Văn E | IT        | 16000000  | 2019-08-15
 
-                -- Kết quả câu 2:
-                id | name        | department | salary    | hire_date
-                1  | Nguyễn Văn A| IT        | 15000000  | 2020-01-15
-                3  | Lê Văn C    | IT        | 18000000  | 2021-03-10
-                5  | Hoàng Văn E | IT        | 16000000  | 2019-08-15
+-- Kết quả câu 2:
+ id | name        | department | salary    | hire_date
+----|-------------|------------|-----------|------------
+  1 | Nguyễn Văn A| IT        | 15000000  | 2020-01-15
+  3 | Lê Văn C    | IT        | 18000000  | 2021-03-10
+  5 | Hoàng Văn E | IT        | 16000000  | 2019-08-15
 
-                -- Kết quả câu 3:
-                department | average_salary
-                IT        | 16333333.33
-                HR        | 12000000.00
-                Sales     | 14000000.00
+-- Kết quả câu 3:
+ department | average_salary | employee_count
+------------|---------------|----------------
+ IT         | 16333333.33   | 3
+ Sales      | 14000000.00   | 1
+ HR         | 12000000.00   | 1</code></pre>
+                    </div>
+                </div>
             </div>
 
             <div class="navigation">
-                <a href="bai-tap-1.html" class="btn">Quay lại bài tập</a>
+                <a href="bai-tap-1.html" class="btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Quay lại bài tập
+                </a>
             </div>
         </article>
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 SQL Exercises and Solutions. All rights reserved.</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SQL Exercises</h3>
+                    <p>Nơi chia sẻ kiến thức và bài tập về SQL</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Liên Kết</h3>
+                    <ul>
+                        <li><a href="../index.html#home">Trang chủ</a></li>
+                        <li><a href="../index.html#exercises">Bài tập</a></li>
+                        <li><a href="../index.html#solutions">Bài giải</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Theo Dõi</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SQL Exercises and Solutions. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
     <script src="../script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const code = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.innerHTML = '<i class="far fa-copy"></i> Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    </script>
 </body>
 </html> 
