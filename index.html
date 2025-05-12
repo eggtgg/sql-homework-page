@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SQL Exercises and Solutions</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
         <nav>
             <div class="container">
-                <h1>SQL Exercises and Solutions</h1>
+                <h1><i class="fas fa-database"></i> SQL Exercises</h1>
                 <ul>
                     <li><a href="#home">Trang chủ</a></li>
                     <li><a href="#exercises">Bài tập</a></li>
@@ -23,35 +24,76 @@
     <main>
         <section id="home" class="hero">
             <div class="container">
-                <h2>Chào mừng đến với trang web SQL Exercises</h2>
-                <p>Nơi chia sẻ kiến thức và bài tập về SQL</p>
+                <h2>Học SQL Qua Bài Tập Thực Hành</h2>
+                <p>Khám phá thế giới SQL thông qua các bài tập thực tế và giải pháp chi tiết. Nâng cao kỹ năng truy vấn dữ liệu của bạn ngay hôm nay!</p>
+                <div class="hero-buttons">
+                    <a href="#exercises" class="btn"><i class="fas fa-book"></i> Xem Bài Tập</a>
+                    <a href="#solutions" class="btn btn-outline"><i class="fas fa-code"></i> Xem Bài Giải</a>
+                </div>
             </div>
         </section>
 
         <section id="exercises" class="content">
             <div class="container">
-                <h2>Danh sách bài tập</h2>
+                <h2>Danh Sách Bài Tập</h2>
                 <div class="post-grid">
-                    <!-- Các bài viết sẽ được thêm vào đây -->
                     <article class="post-card">
+                        <div class="post-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
                         <h3>Bài tập 1: Truy vấn cơ bản</h3>
-                        <p>Học cách viết các câu truy vấn SQL cơ bản...</p>
+                        <p>Học cách viết các câu truy vấn SQL cơ bản với các lệnh SELECT, FROM, WHERE và GROUP BY...</p>
+                        <div class="post-meta">
+                            <span><i class="fas fa-clock"></i> 15 phút</span>
+                            <span><i class="fas fa-signal"></i> Cơ bản</span>
+                        </div>
                         <a href="posts/bai-tap-1.html" class="btn">Đọc thêm</a>
                     </article>
+                    <!-- Thêm các bài tập khác ở đây -->
                 </div>
             </div>
         </section>
 
         <section id="solutions" class="content">
             <div class="container">
-                <h2>Danh sách bài giải</h2>
+                <h2>Danh Sách Bài Giải</h2>
                 <div class="post-grid">
-                    <!-- Các bài giải sẽ được thêm vào đây -->
                     <article class="post-card">
+                        <div class="post-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
                         <h3>Bài giải 1: Truy vấn cơ bản</h3>
-                        <p>Hướng dẫn chi tiết cách giải bài tập 1...</p>
+                        <p>Hướng dẫn chi tiết cách giải bài tập 1 với các ví dụ minh họa và giải thích từng bước...</p>
+                        <div class="post-meta">
+                            <span><i class="fas fa-clock"></i> 20 phút</span>
+                            <span><i class="fas fa-signal"></i> Cơ bản</span>
+                        </div>
                         <a href="posts/bai-giai-1.html" class="btn">Đọc thêm</a>
                     </article>
+                    <!-- Thêm các bài giải khác ở đây -->
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="content bg-light">
+            <div class="container">
+                <h2>Tại Sao Chọn Chúng Tôi?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-book-reader"></i>
+                        <h3>Nội Dung Chất Lượng</h3>
+                        <p>Bài tập được biên soạn kỹ lưỡng, phù hợp với nhiều trình độ</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-code"></i>
+                        <h3>Giải Thích Chi Tiết</h3>
+                        <p>Mỗi bài giải đều có hướng dẫn từng bước và giải thích rõ ràng</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-laptop-code"></i>
+                        <h3>Thực Hành Ngay</h3>
+                        <p>Có sẵn dữ liệu mẫu để bạn có thể thực hành ngay lập tức</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -59,7 +101,31 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 SQL Exercises and Solutions. All rights reserved.</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SQL Exercises</h3>
+                    <p>Nơi chia sẻ kiến thức và bài tập về SQL</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Liên Kết</h3>
+                    <ul>
+                        <li><a href="#home">Trang chủ</a></li>
+                        <li><a href="#exercises">Bài tập</a></li>
+                        <li><a href="#solutions">Bài giải</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Theo Dõi</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SQL Exercises and Solutions. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
