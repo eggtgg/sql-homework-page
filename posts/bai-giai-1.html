@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài giải 1: Truy vấn cơ bản - SQL Exercises</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .post-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .sql-code {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 1rem 0;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        .explanation {
+            background-color: #e8f4f8;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <h1>SQL Exercises and Solutions</h1>
+                <ul>
+                    <li><a href="../index.html#home">Trang chủ</a></li>
+                    <li><a href="../index.html#exercises">Bài tập</a></li>
+                    <li><a href="../index.html#solutions">Bài giải</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <article class="post-content">
+            <a href="../index.html" class="back-link">← Quay lại trang chủ</a>
+            
+            <h1>Bài giải 1: Truy vấn cơ bản</h1>
+
+            <h2>1. Lấy danh sách tất cả nhân viên</h2>
+            <div class="sql-code">
+                SELECT * FROM Employees;
+            </div>
+            <div class="explanation">
+                <p>Giải thích:</p>
+                <ul>
+                    <li>Sử dụng SELECT * để lấy tất cả các cột</li>
+                    <li>FROM Employees chỉ định bảng cần truy vấn</li>
+                </ul>
+            </div>
+
+            <h2>2. Lấy danh sách nhân viên trong phòng IT</h2>
+            <div class="sql-code">
+                SELECT * FROM Employees
+                WHERE department = 'IT';
+            </div>
+            <div class="explanation">
+                <p>Giải thích:</p>
+                <ul>
+                    <li>Sử dụng mệnh đề WHERE để lọc kết quả</li>
+                    <li>Điều kiện department = 'IT' sẽ chỉ lấy các nhân viên thuộc phòng IT</li>
+                </ul>
+            </div>
+
+            <h2>3. Tính lương trung bình của mỗi phòng ban</h2>
+            <div class="sql-code">
+                SELECT 
+                    department,
+                    AVG(salary) as average_salary
+                FROM Employees
+                GROUP BY department;
+            </div>
+            <div class="explanation">
+                <p>Giải thích:</p>
+                <ul>
+                    <li>Sử dụng hàm tổng hợp AVG() để tính giá trị trung bình của cột salary</li>
+                    <li>GROUP BY department để nhóm kết quả theo phòng ban</li>
+                    <li>as average_salary đặt tên cho cột kết quả</li>
+                </ul>
+            </div>
+
+            <h2>Kết quả mẫu</h2>
+            <div class="sql-code">
+                -- Kết quả câu 1:
+                id | name        | department | salary    | hire_date
+                1  | Nguyễn Văn A| IT        | 15000000  | 2020-01-15
+                2  | Trần Thị B  | HR        | 12000000  | 2019-05-20
+                3  | Lê Văn C    | IT        | 18000000  | 2021-03-10
+                4  | Phạm Thị D  | Sales     | 14000000  | 2020-11-05
+                5  | Hoàng Văn E | IT        | 16000000  | 2019-08-15
+
+                -- Kết quả câu 2:
+                id | name        | department | salary    | hire_date
+                1  | Nguyễn Văn A| IT        | 15000000  | 2020-01-15
+                3  | Lê Văn C    | IT        | 18000000  | 2021-03-10
+                5  | Hoàng Văn E | IT        | 16000000  | 2019-08-15
+
+                -- Kết quả câu 3:
+                department | average_salary
+                IT        | 16333333.33
+                HR        | 12000000.00
+                Sales     | 14000000.00
+            </div>
+
+            <div class="navigation">
+                <a href="bai-tap-1.html" class="btn">Quay lại bài tập</a>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 SQL Exercises and Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html> 
