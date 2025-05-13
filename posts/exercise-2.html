@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài tập 2: Aggregate Functions với GROUP BY và HAVING - SQL Exercises</title>
+    <title>Exercise 2: Aggregate Functions with GROUP BY and HAVING - SQL Exercises</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
@@ -96,6 +96,28 @@
             font-size: 1.1rem;
         }
 
+        .btn-disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            background: #e9ecef;
+            color: #6c757d;
+        }
+
+        @media (max-width: 768px) {
+            .post-content {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+
+            .post-content h1 {
+                font-size: 2rem;
+            }
+
+            .post-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+
         .code-block {
             position: relative;
             margin: 2rem 0;
@@ -184,34 +206,6 @@
         .token.builtin {
             color: #00b894;
         }
-
-        .token.operator,
-        .token.entity,
-        .token.url,
-        .language-css .token.string,
-        .style .token.string {
-            color: #e17055;
-        }
-
-        .token.keyword {
-            color: #6c5ce7;
-            font-weight: 600;
-        }
-
-        @media (max-width: 768px) {
-            .post-content {
-                padding: 2rem 1.5rem;
-                margin: 1rem;
-            }
-
-            .post-content h1 {
-                font-size: 2rem;
-            }
-
-            .post-content h2 {
-                font-size: 1.5rem;
-            }
-        }
     </style>
 </head>
 <body>
@@ -220,9 +214,9 @@
             <div class="container">
                 <h1><i class="fas fa-database"></i> SQL Exercises</h1>
                 <ul>
-                    <li><a href="../index.html#home">Trang chủ</a></li>
-                    <li><a href="../index.html#exercises">Bài tập</a></li>
-                    <li><a href="../index.html#solutions">Bài giải</a></li>
+                    <li><a href="../index.html#home">Home</a></li>
+                    <li><a href="../index.html#exercises">Exercises</a></li>
+                    <li><a href="../index.html#solutions">Solutions</a></li>
                 </ul>
             </div>
         </nav>
@@ -232,13 +226,13 @@
         <article class="post-content">
             <a href="../index.html" class="back-link">
                 <i class="fas fa-arrow-left"></i>
-                Quay lại trang chủ
+                Back to Home
             </a>
             
-            <h1>Bài tập 2: Aggregate Functions với GROUP BY và HAVING</h1>
+            <h1>Exercise 2: Aggregate Functions with GROUP BY and HAVING</h1>
             
-            <h2>Mô tả bài tập</h2>
-            <p>Trong bài tập này, chúng ta sẽ thực hành các câu truy vấn SQL sử dụng GROUP BY và HAVING với bảng sales (bán hàng). Bảng này chứa thông tin về các giao dịch bán hàng, rất phù hợp để nhóm dữ liệu theo khách hàng, sản phẩm, khu vực, v.v., và tính toán tổng doanh thu, số lượng mặt hàng đã bán.</p>
+            <h2>Exercise Description</h2>
+            <p>In this exercise, we will practice SQL queries using GROUP BY and HAVING with a sales table. This table contains information about sales transactions, perfect for grouping data by customer, product, region, etc., and calculating total revenue and quantity sold.</p>
             
             <div class="sql-code">
                 <div class="code-block">
@@ -246,10 +240,10 @@
                         <i class="far fa-copy"></i>
                         Copy
                     </button>
-                    <pre><code class="language-sql">-- Xóa bảng nếu nó đã tồn tại
+                    <pre><code class="language-sql">-- Drop table if it exists
 DROP TABLE IF EXISTS sales;
 
--- Tạo bảng sales
+-- Create sales table
 CREATE TABLE sales (
     sale_id SERIAL PRIMARY KEY,
     customer_id INT NOT NULL,
@@ -260,7 +254,7 @@ CREATE TABLE sales (
     region VARCHAR(50) NOT NULL
 );
 
--- Thêm dữ liệu mẫu
+-- Insert sample data
 INSERT INTO sales (customer_id, product_name, sale_date, amount, quantity, region) VALUES
 (1, 'Laptop', '2023-01-15', 1200.00, 1, 'North'),
 (2, 'Mouse', '2023-01-15', 25.00, 2, 'South'),
@@ -280,34 +274,34 @@ INSERT INTO sales (customer_id, product_name, sale_date, amount, quantity, regio
                 </div>
             </div>
 
-            <h2>Yêu cầu</h2>
-            <h3>Bài tập 1: Truy vấn cơ bản</h3>
-            <p>Hãy viết các câu truy vấn để:</p>
+            <h2>Requirements</h2>
+            <h3>Exercise 1: Basic Queries</h3>
+            <p>Write queries to:</p>
             <ol>
-                <li>Xem toàn bộ dữ liệu trong bảng sales.</li>
-                <li>Tìm tổng doanh thu (amount) cho mỗi khách hàng (customer_id).</li>
-                <li>Đếm tổng số giao dịch (các hàng) cho mỗi khu vực (region).</li>
-                <li>Đếm tổng số giao dịch (các hàng) cho mỗi tên sản phẩm (product_name).</li>
+                <li>View all data in the sales table.</li>
+                <li>Find total revenue (amount) for each customer (customer_id).</li>
+                <li>Count total transactions (rows) for each region.</li>
+                <li>Count total transactions (rows) for each product name.</li>
             </ol>
 
-            <h3>Bài tập 2: Lọc nhóm với HAVING</h3>
-            <p>Hãy viết các câu truy vấn để:</p>
+            <h3>Exercise 2: Filter Groups with HAVING</h3>
+            <p>Write queries to:</p>
             <ol>
-                <li>Tìm các khách hàng (customer_id) có tổng doanh thu (sum(amount)) lớn hơn 1500, và sắp xếp kết quả theo tổng doanh thu giảm dần.</li>
-                <li>Tìm các khu vực (region) có tổng số giao dịch (count(*)) lớn hơn 4.</li>
-                <li>Tìm các sản phẩm (product_name) có tổng số lượng bán được (sum(quantity)) nhỏ hơn 5.</li>
+                <li>Find customers (customer_id) with total revenue (sum(amount)) greater than 1500, and sort results by total revenue in descending order.</li>
+                <li>Find regions with total transactions (count(*)) greater than 4.</li>
+                <li>Find products with total quantity sold (sum(quantity)) less than 5.</li>
             </ol>
 
-            <h3>Bài tập 3: Kết hợp WHERE và HAVING</h3>
-            <p>Hãy viết câu truy vấn để:</p>
+            <h3>Exercise 3: Combine WHERE and HAVING</h3>
+            <p>Write a query to:</p>
             <ol>
-                <li>Tìm tổng doanh thu (sum(amount)) và số lượng giao dịch (count(region)) cho mỗi khu vực (region).</li>
-                <li>Chỉ xét các giao dịch xảy ra sau ngày '2023-01-17'.</li>
-                <li>Chỉ hiển thị các khu vực có tổng doanh thu trên 1300.</li>
+                <li>Find total revenue (sum(amount)) and number of transactions (count(region)) for each region.</li>
+                <li>Only consider transactions after '2023-01-17'.</li>
+                <li>Only show regions with total revenue above 1300.</li>
             </ol>
 
-            <h2>Gợi ý</h2>
-            <p>Hãy thử tự giải quyết các yêu cầu trên trước khi xem đáp án. Lưu ý sự khác biệt giữa WHERE (lọc hàng) và HAVING (lọc nhóm).</p>
+            <h2>Hints</h2>
+            <p>Try to solve these requirements before checking the solution. Note the difference between WHERE (filtering rows) and HAVING (filtering groups).</p>
 
             <div class="navigation" id="solution-button">
                 <!-- Solution button will be loaded dynamically -->
@@ -320,18 +314,18 @@ INSERT INTO sales (customer_id, product_name, sale_date, amount, quantity, regio
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>SQL Exercises</h3>
-                    <p>Nơi chia sẻ kiến thức và bài tập về SQL</p>
+                    <p>A place to share SQL knowledge and exercises</p>
                 </div>
                 <div class="footer-section">
-                    <h3>Liên Kết</h3>
+                    <h3>Links</h3>
                     <ul>
-                        <li><a href="../index.html#home">Trang chủ</a></li>
-                        <li><a href="../index.html#exercises">Bài tập</a></li>
-                        <li><a href="../index.html#solutions">Bài giải</a></li>
+                        <li><a href="../index.html#home">Home</a></li>
+                        <li><a href="../index.html#exercises">Exercises</a></li>
+                        <li><a href="../index.html#solutions">Solutions</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Theo Dõi</h3>
+                    <h3>Follow Us</h3>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-github"></i></a>
                         <a href="#"><i class="fab fa-linkedin"></i></a>
@@ -350,6 +344,29 @@ INSERT INTO sales (customer_id, product_name, sale_date, amount, quantity, regio
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
     <script>
+        // Function to load solution button based on config
+        function loadSolutionButton() {
+            const solutionButton = document.getElementById('solution-button');
+            if (config.solutions['solution-2'].enabled) {
+                solutionButton.innerHTML = `
+                    <a href="solution-2.html" class="btn">
+                        <i class="fas fa-code"></i>
+                        View Solution
+                    </a>
+                `;
+            } else {
+                solutionButton.innerHTML = `
+                    <div class="btn btn-disabled">
+                        <i class="fas fa-clock"></i>
+                        Solution is being updated
+                    </div>
+                `;
+            }
+        }
+
+        // Load solution button when page loads
+        document.addEventListener('DOMContentLoaded', loadSolutionButton);
+
         function copyCode(button) {
             const codeBlock = button.nextElementSibling;
             const code = codeBlock.textContent;
@@ -365,14 +382,13 @@ INSERT INTO sales (customer_id, product_name, sale_date, amount, quantity, regio
             });
         }
 
-        // Xử lý scroll khi click vào các liên kết trong navbar
+        // Handle scroll when clicking navbar links
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const href = this.getAttribute('href');
                 if (href.includes('#')) {
                     const [path, hash] = href.split('#');
-                    // Lưu hash vào sessionStorage trước khi chuyển trang
                     sessionStorage.setItem('scrollToHash', hash);
                     window.location.href = path;
                 } else {
@@ -381,7 +397,7 @@ INSERT INTO sales (customer_id, product_name, sale_date, amount, quantity, regio
             });
         });
 
-        // Kiểm tra và scroll đến hash sau khi trang load
+        // Check and scroll to hash after page load
         window.addEventListener('load', function() {
             const hash = sessionStorage.getItem('scrollToHash');
             if (hash) {
@@ -389,33 +405,9 @@ INSERT INTO sales (customer_id, product_name, sale_date, amount, quantity, regio
                 if (element) {
                     element.scrollIntoView({ behavior: 'smooth' });
                 }
-                // Xóa hash khỏi sessionStorage sau khi đã scroll
                 sessionStorage.removeItem('scrollToHash');
             }
         });
-
-        // Function to load solution button based on config
-        function loadSolutionButton() {
-            const solutionButton = document.getElementById('solution-button');
-            if (config.solutions['bai-giai-2'].enabled) {
-                solutionButton.innerHTML = `
-                    <a href="bai-giai-2.html" class="btn">
-                        <i class="fas fa-code"></i>
-                        Xem bài giải
-                    </a>
-                `;
-            } else {
-                solutionButton.innerHTML = `
-                    <div class="btn btn-disabled">
-                        <i class="fas fa-clock"></i>
-                        Bài giải đang được cập nhật
-                    </div>
-                `;
-            }
-        }
-
-        // Load solution button when page loads
-        document.addEventListener('DOMContentLoaded', loadSolutionButton);
     </script>
 </body>
-</html> 
+</html>

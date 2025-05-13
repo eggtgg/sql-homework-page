@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,9 +13,9 @@
             <div class="container">
                 <h1><i class="fas fa-database"></i> SQL Exercises</h1>
                 <ul>
-                    <li><a href="#home">Trang chủ</a></li>
-                    <li><a href="#exercises">Bài tập</a></li>
-                    <li><a href="#solutions">Bài giải</a></li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#exercises">Exercises</a></li>
+                    <li><a href="#solutions">Solutions</a></li>
                 </ul>
             </div>
         </nav>
@@ -24,42 +24,42 @@
     <main>
         <section id="home" class="hero">
             <div class="container">
-                <h2>Học SQL Qua Bài Tập Thực Hành</h2>
-                <p>Khám phá thế giới SQL thông qua các bài tập thực tế và giải pháp chi tiết. Nâng cao kỹ năng truy vấn dữ liệu của bạn ngay hôm nay!</p>
+                <h2>Learn SQL Through Practical Exercises</h2>
+                <p>Explore the world of SQL through real-world exercises and detailed solutions. Enhance your data querying skills today!</p>
                 <div class="hero-buttons">
-                    <a href="#exercises" class="btn"><i class="fas fa-book"></i> Xem Bài Tập</a>
-                    <a href="#solutions" class="btn btn-outline"><i class="fas fa-code"></i> Xem Bài Giải</a>
+                    <a href="#exercises" class="btn"><i class="fas fa-book"></i> View Exercises</a>
+                    <a href="#solutions" class="btn btn-outline"><i class="fas fa-code"></i> View Solutions</a>
                 </div>
             </div>
         </section>
 
         <section id="exercises" class="content">
             <div class="container">
-                <h2>Danh Sách Bài Tập</h2>
+                <h2>Exercise List</h2>
                 <div class="post-grid">
                     <article class="post-card">
                         <div class="post-icon">
                             <i class="fas fa-database"></i>
                         </div>
-                        <h3>Bài tập 1: Truy vấn cơ bản</h3>
-                        <p>Học cách viết các câu truy vấn SQL cơ bản với các lệnh SELECT, FROM, WHERE và GROUP BY...</p>
+                        <h3>Exercise 1: Basic Queries</h3>
+                        <p>Learn how to write basic SQL queries using SELECT, FROM, WHERE, and GROUP BY commands...</p>
                         <div class="post-meta">
-                            <span><i class="fas fa-clock"></i> 15 phút</span>
-                            <span><i class="fas fa-signal"></i> Cơ bản</span>
+                            <span><i class="fas fa-clock"></i> 15 minutes</span>
+                            <span><i class="fas fa-signal"></i> Basic</span>
                         </div>
-                        <a href="posts/bai-tap-1.html" class="btn">Đọc thêm</a>
+                        <a href="posts/exercise-1.html" class="btn">Read More</a>
                     </article>
                     <article class="post-card">
                         <div class="post-icon">
                             <i class="fas fa-layer-group"></i>
                         </div>
-                        <h3>Bài tập 2: GROUP BY và HAVING</h3>
-                        <p>Thực hành nhóm dữ liệu và lọc kết quả với GROUP BY và HAVING trong các bài toán phân tích doanh thu...</p>
+                        <h3>Exercise 2: GROUP BY and HAVING</h3>
+                        <p>Practice grouping data and filtering results with GROUP BY and HAVING in revenue analysis problems...</p>
                         <div class="post-meta">
-                            <span><i class="fas fa-clock"></i> 20 phút</span>
-                            <span><i class="fas fa-signal"></i> Trung bình</span>
+                            <span><i class="fas fa-clock"></i> 20 minutes</span>
+                            <span><i class="fas fa-signal"></i> Intermediate</span>
                         </div>
-                        <a href="posts/bai-tap-2.html" class="btn">Đọc thêm</a>
+                        <a href="posts/exercise-2.html" class="btn">Read More</a>
                     </article>
                 </div>
             </div>
@@ -67,54 +67,31 @@
 
         <section id="solutions" class="content">
             <div class="container">
-                <h2>Danh Sách Bài Giải</h2>
-                <div class="post-grid">
-                    <article class="post-card">
-                        <div class="post-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h3>Bài giải 1: Truy vấn cơ bản</h3>
-                        <p>Hướng dẫn chi tiết cách giải bài tập 1 với các ví dụ minh họa và giải thích từng bước...</p>
-                        <div class="post-meta">
-                            <span><i class="fas fa-clock"></i> 20 phút</span>
-                            <span><i class="fas fa-signal"></i> Cơ bản</span>
-                        </div>
-                        <a href="posts/bai-giai-1.html" class="btn">Đọc thêm</a>
-                    </article>
-                    <article class="post-card">
-                        <div class="post-icon">
-                            <i class="fas fa-chart-bar"></i>
-                        </div>
-                        <h3>Bài giải 2: GROUP BY và HAVING</h3>
-                        <p>Giải thích chi tiết cách sử dụng GROUP BY và HAVING để phân tích dữ liệu bán hàng theo nhiều tiêu chí...</p>
-                        <div class="post-meta">
-                            <span><i class="fas fa-clock"></i> 25 phút</span>
-                            <span><i class="fas fa-signal"></i> Trung bình</span>
-                        </div>
-                        <a href="posts/bai-giai-2.html" class="btn">Đọc thêm</a>
-                    </article>
+                <h2>Solution List</h2>
+                <div class="post-grid" id="solutions-list">
+                    <!-- Solutions will be loaded dynamically -->
                 </div>
             </div>
         </section>
 
         <section id="features" class="content bg-light">
             <div class="container">
-                <h2>Tại Sao Chọn Chúng Tôi?</h2>
+                <h2>Why Choose Us?</h2>
                 <div class="features-grid">
                     <div class="feature-card">
                         <i class="fas fa-book-reader"></i>
-                        <h3>Nội Dung Chất Lượng</h3>
-                        <p>Bài tập được biên soạn kỹ lưỡng, phù hợp với nhiều trình độ</p>
+                        <h3>Quality Content</h3>
+                        <p>Carefully crafted exercises suitable for various skill levels</p>
                     </div>
                     <div class="feature-card">
                         <i class="fas fa-code"></i>
-                        <h3>Giải Thích Chi Tiết</h3>
-                        <p>Mỗi bài giải đều có hướng dẫn từng bước và giải thích rõ ràng</p>
+                        <h3>Detailed Explanations</h3>
+                        <p>Step-by-step guides and clear explanations for each solution</p>
                     </div>
                     <div class="feature-card">
                         <i class="fas fa-laptop-code"></i>
-                        <h3>Thực Hành Ngay</h3>
-                        <p>Có sẵn dữ liệu mẫu để bạn có thể thực hành ngay lập tức</p>
+                        <h3>Practice Now</h3>
+                        <p>Sample data available for immediate practice</p>
                     </div>
                 </div>
             </div>
@@ -126,18 +103,18 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>SQL Exercises</h3>
-                    <p>Nơi chia sẻ kiến thức và bài tập về SQL</p>
+                    <p>A place to share SQL knowledge and exercises</p>
                 </div>
                 <div class="footer-section">
-                    <h3>Liên Kết</h3>
+                    <h3>Links</h3>
                     <ul>
-                        <li><a href="#home">Trang chủ</a></li>
-                        <li><a href="#exercises">Bài tập</a></li>
-                        <li><a href="#solutions">Bài giải</a></li>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#exercises">Exercises</a></li>
+                        <li><a href="#solutions">Solutions</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Theo Dõi</h3>
+                    <h3>Follow Us</h3>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-github"></i></a>
                         <a href="#"><i class="fab fa-linkedin"></i></a>
@@ -152,8 +129,38 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="config.js"></script>
     <script>
-        // Xử lý click cho các nút trong hero section
+        // Function to load solutions based on config
+        function loadSolutions() {
+            const solutionsList = document.getElementById('solutions-list');
+            solutionsList.innerHTML = ''; // Clear existing content
+
+            Object.entries(config.solutions).forEach(([key, solution]) => {
+                if (solution.enabled) {
+                    const article = document.createElement('article');
+                    article.className = 'post-card';
+                    article.innerHTML = `
+                        <div class="post-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>${solution.title}</h3>
+                        <p>${solution.description}</p>
+                        <div class="post-meta">
+                            <span><i class="fas fa-clock"></i> ${solution.duration}</span>
+                            <span><i class="fas fa-signal"></i> ${solution.level}</span>
+                        </div>
+                        <a href="posts/${key}.html" class="btn">Read More</a>
+                    `;
+                    solutionsList.appendChild(article);
+                }
+            });
+        }
+
+        // Load solutions when page loads
+        document.addEventListener('DOMContentLoaded', loadSolutions);
+
+        // Handle click for hero section buttons
         document.querySelectorAll('.hero-buttons a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -168,18 +175,16 @@
             });
         });
 
-        // Kiểm tra và scroll đến hash sau khi trang load
+        // Check and scroll to hash after page load
         window.addEventListener('load', function() {
             const hash = sessionStorage.getItem('scrollToHash');
             if (hash) {
                 const element = document.getElementById(hash);
                 if (element) {
-                    // Thêm một chút delay để đảm bảo trang đã render hoàn toàn
                     setTimeout(() => {
                         element.scrollIntoView({ behavior: 'smooth' });
                     }, 100);
                 }
-                // Xóa hash khỏi sessionStorage sau khi đã scroll
                 sessionStorage.removeItem('scrollToHash');
             }
         });

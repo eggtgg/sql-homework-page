@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài giải 2: Aggregate Functions với GROUP BY và HAVING - SQL Exercises</title>
+    <title>Solution 2: Aggregate Functions with GROUP BY and HAVING - SQL Exercises</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
@@ -96,6 +96,21 @@
             font-size: 1.1rem;
         }
 
+        @media (max-width: 768px) {
+            .post-content {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+
+            .post-content h1 {
+                font-size: 2rem;
+            }
+
+            .post-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+
         .code-block {
             position: relative;
             margin: 2rem 0;
@@ -185,67 +200,34 @@
             color: #00b894;
         }
 
-        .token.operator,
-        .token.entity,
-        .token.url,
-        .language-css .token.string,
-        .style .token.string {
-            color: #e17055;
-        }
-
-        .token.keyword {
-            color: #6c5ce7;
-            font-weight: 600;
-        }
-
         .explanation {
-            background: linear-gradient(to right, rgba(9, 132, 227, 0.05), rgba(9, 132, 227, 0.02));
+            background: linear-gradient(to right, #f8f9fa, #ffffff);
             padding: 1.5rem;
-            border-radius: var(--border-radius);
+            border-left: 4px solid var(--accent-color);
             margin: 1.5rem 0;
-            border-left: 4px solid var(--secondary-color);
-            box-shadow: var(--shadow);
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
         }
 
         .explanation p {
-            color: var(--text-color);
-            font-weight: 600;
             margin-bottom: 1rem;
+            font-weight: 500;
+            color: var(--text-color);
         }
 
         .explanation ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .explanation ul li {
-            color: #636e72;
-            margin-bottom: 0.8rem;
+            list-style-type: disc;
             padding-left: 1.5rem;
-            position: relative;
+            margin: 0;
         }
 
-        .explanation ul li::before {
-            content: '•';
-            color: var(--secondary-color);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
+        .explanation li {
+            color: #636e72;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
         }
 
-        @media (max-width: 768px) {
-            .post-content {
-                padding: 2rem 1.5rem;
-                margin: 1rem;
-            }
-
-            .post-content h1 {
-                font-size: 2rem;
-            }
-
-            .post-content h2 {
-                font-size: 1.5rem;
-            }
+        .explanation li:last-child {
+            margin-bottom: 0;
         }
     </style>
 </head>
@@ -255,9 +237,9 @@
             <div class="container">
                 <h1><i class="fas fa-database"></i> SQL Exercises</h1>
                 <ul>
-                    <li><a href="../index.html#home">Trang chủ</a></li>
-                    <li><a href="../index.html#exercises">Bài tập</a></li>
-                    <li><a href="../index.html#solutions">Bài giải</a></li>
+                    <li><a href="../index.html#home">Home</a></li>
+                    <li><a href="../index.html#exercises">Exercises</a></li>
+                    <li><a href="../index.html#solutions">Solutions</a></li>
                 </ul>
             </div>
         </nav>
@@ -267,14 +249,14 @@
         <article class="post-content">
             <a href="../index.html" class="back-link">
                 <i class="fas fa-arrow-left"></i>
-                Quay lại trang chủ
+                Back to Home
             </a>
             
-            <h1>Bài giải 2: Aggregate Functions với GROUP BY và HAVING</h1>
+            <h1>Solution 2: Aggregate Functions with GROUP BY and HAVING</h1>
             
-            <h2>Bài tập 1: Truy vấn cơ bản</h2>
+            <h2>Exercise 1: Basic Queries</h2>
             
-            <h3>1. Xem toàn bộ dữ liệu trong bảng sales</h3>
+            <h3>1. View all data in the sales table</h3>
             <div class="sql-code">
                 <div class="code-block">
                     <button class="copy-button" onclick="copyCode(this)">
@@ -285,13 +267,13 @@
                 </div>
             </div>
             <div class="explanation">
-                <p>Giải thích:</p>
+                <p>Explanation:</p>
                 <ul>
-                    <li>Câu truy vấn này sẽ hiển thị tất cả các cột và hàng trong bảng sales</li>
+                    <li>This query will display all columns and rows in the sales table</li>
                 </ul>
             </div>
 
-            <h3>2. Tìm tổng doanh thu cho mỗi khách hàng</h3>
+            <h3>2. Find total revenue for each customer</h3>
             <div class="sql-code">
                 <div class="code-block">
                     <button class="copy-button" onclick="copyCode(this)">
@@ -307,15 +289,15 @@ ORDER BY total_revenue DESC;</code></pre>
                 </div>
             </div>
             <div class="explanation">
-                <p>Giải thích:</p>
+                <p>Explanation:</p>
                 <ul>
-                    <li>Chúng ta sử dụng GROUP BY để nhóm các giao dịch theo customer_id</li>
-                    <li>Sau đó tính tổng doanh thu bằng hàm sum()</li>
-                    <li>Kết quả được sắp xếp theo tổng doanh thu giảm dần</li>
+                    <li>We use GROUP BY to group transactions by customer_id</li>
+                    <li>Then calculate total revenue using sum()</li>
+                    <li>Results are sorted by total revenue in descending order</li>
                 </ul>
             </div>
 
-            <h3>3. Đếm tổng số giao dịch cho mỗi khu vực</h3>
+            <h3>3. Count total transactions for each region</h3>
             <div class="sql-code">
                 <div class="code-block">
                     <button class="copy-button" onclick="copyCode(this)">
@@ -331,14 +313,14 @@ ORDER BY transaction_count DESC;</code></pre>
                 </div>
             </div>
             <div class="explanation">
-                <p>Giải thích:</p>
+                <p>Explanation:</p>
                 <ul>
-                    <li>Sử dụng count(*) để đếm số lượng giao dịch cho mỗi khu vực</li>
-                    <li>Kết quả được sắp xếp theo số lượng giao dịch giảm dần</li>
+                    <li>Use count(*) to count the number of transactions for each region</li>
+                    <li>Results are sorted by transaction count in descending order</li>
                 </ul>
             </div>
 
-            <h3>4. Đếm tổng số giao dịch cho mỗi sản phẩm</h3>
+            <h3>4. Count total transactions for each product</h3>
             <div class="sql-code">
                 <div class="code-block">
                     <button class="copy-button" onclick="copyCode(this)">
@@ -354,15 +336,15 @@ ORDER BY transaction_count DESC;</code></pre>
                 </div>
             </div>
             <div class="explanation">
-                <p>Giải thích:</p>
+                <p>Explanation:</p>
                 <ul>
-                    <li>Tương tự như câu truy vấn trước, nhưng nhóm theo product_name thay vì region</li>
+                    <li>Similar to the previous query, but grouped by product_name instead of region</li>
                 </ul>
             </div>
 
-            <h2>Bài tập 2: Lọc nhóm với HAVING</h2>
+            <h2>Exercise 2: Filter Groups with HAVING</h2>
 
-            <h3>1. Tìm khách hàng có tổng doanh thu lớn hơn 1500</h3>
+            <h3>1. Find customers with total revenue greater than 1500</h3>
             <div class="sql-code">
                 <div class="code-block">
                     <button class="copy-button" onclick="copyCode(this)">
@@ -379,14 +361,14 @@ ORDER BY total_revenue DESC;</code></pre>
                 </div>
             </div>
             <div class="explanation">
-                <p>Giải thích:</p>
+                <p>Explanation:</p>
                 <ul>
-                    <li>Sử dụng HAVING để lọc các nhóm có tổng doanh thu lớn hơn 1500</li>
-                    <li>Lưu ý rằng chúng ta không thể sử dụng WHERE ở đây vì nó chỉ lọc các hàng riêng lẻ, không phải các nhóm</li>
+                    <li>Use HAVING to filter groups with total revenue greater than 1500</li>
+                    <li>Note that we cannot use WHERE here as it only filters individual rows, not groups</li>
                 </ul>
             </div>
 
-            <h3>2. Tìm khu vực có tổng số giao dịch lớn hơn 4</h3>
+            <h3>2. Find regions with more than 4 transactions</h3>
             <div class="sql-code">
                 <div class="code-block">
                     <button class="copy-button" onclick="copyCode(this)">
@@ -403,13 +385,13 @@ ORDER BY transaction_count DESC;</code></pre>
                 </div>
             </div>
             <div class="explanation">
-                <p>Giải thích:</p>
+                <p>Explanation:</p>
                 <ul>
-                    <li>Sử dụng HAVING để lọc các khu vực có số lượng giao dịch lớn hơn 4</li>
+                    <li>Use HAVING to filter regions with more than 4 transactions</li>
                 </ul>
             </div>
 
-            <h3>3. Tìm sản phẩm có tổng số lượng bán được nhỏ hơn 5</h3>
+            <h3>3. Find products with total quantity sold less than 5</h3>
             <div class="sql-code">
                 <div class="code-block">
                     <button class="copy-button" onclick="copyCode(this)">
@@ -426,15 +408,15 @@ ORDER BY total_quantity ASC;</code></pre>
                 </div>
             </div>
             <div class="explanation">
-                <p>Giải thích:</p>
+                <p>Explanation:</p>
                 <ul>
-                    <li>Sử dụng HAVING để lọc các sản phẩm có tổng số lượng bán được nhỏ hơn 5</li>
+                    <li>Use HAVING to filter products with total quantity sold less than 5</li>
                 </ul>
             </div>
 
-            <h2>Bài tập 3: Kết hợp WHERE và HAVING</h2>
+            <h2>Exercise 3: Combine WHERE and HAVING</h2>
 
-            <h3>Tìm tổng doanh thu và số lượng giao dịch cho mỗi khu vực sau ngày 2023-01-17</h3>
+            <h3>Find total revenue and transaction count for each region after 2023-01-17</h3>
             <div class="sql-code">
                 <div class="code-block">
                     <button class="copy-button" onclick="copyCode(this)">
@@ -453,19 +435,19 @@ ORDER BY total_revenue DESC;</code></pre>
                 </div>
             </div>
             <div class="explanation">
-                <p>Giải thích:</p>
+                <p>Explanation:</p>
                 <ul>
-                    <li>Sử dụng WHERE để lọc các giao dịch sau ngày 2023-01-17</li>
-                    <li>Nhóm kết quả theo region</li>
-                    <li>Sử dụng HAVING để lọc các khu vực có tổng doanh thu lớn hơn 1300</li>
-                    <li>Sắp xếp kết quả theo tổng doanh thu giảm dần</li>
+                    <li>Use WHERE to filter transactions after 2023-01-17</li>
+                    <li>Group results by region</li>
+                    <li>Use HAVING to filter regions with total revenue above 1300</li>
+                    <li>Sort results by total revenue in descending order</li>
                 </ul>
             </div>
 
             <div class="navigation">
-                <a href="bai-tap-2.html" class="btn">
+                <a href="exercise-2.html" class="btn">
                     <i class="fas fa-arrow-left"></i>
-                    Quay lại bài tập
+                    Back to Exercise
                 </a>
             </div>
         </article>
@@ -476,18 +458,18 @@ ORDER BY total_revenue DESC;</code></pre>
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>SQL Exercises</h3>
-                    <p>Nơi chia sẻ kiến thức và bài tập về SQL</p>
+                    <p>A place to share SQL knowledge and exercises</p>
                 </div>
                 <div class="footer-section">
-                    <h3>Liên Kết</h3>
+                    <h3>Links</h3>
                     <ul>
-                        <li><a href="../index.html#home">Trang chủ</a></li>
-                        <li><a href="../index.html#exercises">Bài tập</a></li>
-                        <li><a href="../index.html#solutions">Bài giải</a></li>
+                        <li><a href="../index.html#home">Home</a></li>
+                        <li><a href="../index.html#exercises">Exercises</a></li>
+                        <li><a href="../index.html#solutions">Solutions</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Theo Dõi</h3>
+                    <h3>Follow Us</h3>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-github"></i></a>
                         <a href="#"><i class="fab fa-linkedin"></i></a>
@@ -520,14 +502,13 @@ ORDER BY total_revenue DESC;</code></pre>
             });
         }
 
-        // Xử lý scroll khi click vào các liên kết trong navbar
+        // Handle scroll when clicking navbar links
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const href = this.getAttribute('href');
                 if (href.includes('#')) {
                     const [path, hash] = href.split('#');
-                    // Lưu hash vào sessionStorage trước khi chuyển trang
                     sessionStorage.setItem('scrollToHash', hash);
                     window.location.href = path;
                 } else {
@@ -536,7 +517,7 @@ ORDER BY total_revenue DESC;</code></pre>
             });
         });
 
-        // Kiểm tra và scroll đến hash sau khi trang load
+        // Check and scroll to hash after page load
         window.addEventListener('load', function() {
             const hash = sessionStorage.getItem('scrollToHash');
             if (hash) {
@@ -544,7 +525,6 @@ ORDER BY total_revenue DESC;</code></pre>
                 if (element) {
                     element.scrollIntoView({ behavior: 'smooth' });
                 }
-                // Xóa hash khỏi sessionStorage sau khi đã scroll
                 sessionStorage.removeItem('scrollToHash');
             }
         });
