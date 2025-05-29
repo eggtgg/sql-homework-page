@@ -2,6 +2,8 @@
 
 Đây là một trang web tĩnh chứa các bài tập và bài giải về SQL. Trang web được host trên GitHub Pages.
 
+[SQL Exercises and Solutions](https://eggtgg.github.io/sql-homework-page/)
+
 ## Cấu trúc dự án
 
 - `index.html`: Trang chủ
