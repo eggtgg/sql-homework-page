@@ -8,7 +8,7 @@ const config = {
             level: "Basic"
         },
         "solution-2": {
-            enabled: false,
+            enabled: true,
             title: "Solution 2: GROUP BY and HAVING",
             description: "Detailed guide for Exercise 2 with examples of GROUP BY and HAVING...",
             duration: "25 minutes",
