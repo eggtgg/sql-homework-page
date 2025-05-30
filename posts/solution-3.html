@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solution 3: PostgreSQL Datatype Exercises - SQL Exercises</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <style>
+        .post-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            color: var(--accent-color);
+            transform: translateX(-5px);
+        }
+
+        .post-content h1 {
+            font-size: 2.5rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .post-content h2 {
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin: 2rem 0 1rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .post-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--gradient-secondary);
+            border-radius: 2px;
+        }
+
+        .post-content p {
+            color: #636e72;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .post-content ol {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .post-content ol li {
+            color: #2d3436;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .post-content ul {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .post-content ul li {
+            color: #2d3436;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .navigation {
+            margin-top: 3rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn i {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .post-content {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+
+            .post-content h1 {
+                font-size: 2rem;
+            }
+
+            .post-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .code-block {
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .code-block pre {
+            margin: 0;
+            border-radius: var(--border-radius);
+            background: #f8f9fa !important;
+            border: 1px solid #e9ecef;
+        }
+
+        .code-block code {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #2d3436;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 0, 0, 0.05);
+            border: none;
+            border-radius: 4px;
+            color: #2d3436;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .copy-button:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .copy-button i {
+            font-size: 1rem;
+        }
+
+        .copy-button.copied {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .sql-code {
+            background: none;
+            padding: 0;
+            border: none;
+            box-shadow: none;
+        }
+
+        .sql-code::before {
+            display: none;
+        }
+
+        /* Custom Prism.js theme overrides */
+        .token.comment,
+        .token.prolog,
+        .token.doctype,
+        .token.cdata {
+            color: #6c757d;
+        }
+
+        .token.punctuation {
+            color: #2d3436;
+        }
+
+        .token.property,
+        .token.tag,
+        .token.boolean,
+        .token.number,
+        .token.constant,
+        .token.symbol {
+            color: #0984e3;
+        }
+
+        .token.selector,
+        .token.attr-name,
+        .token.string,
+        .token.char,
+        .token.builtin {
+            color: #00b894;
+        }
+
+        .explanation {
+            background: linear-gradient(to right, #f8f9fa, #ffffff);
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .explanation p {
+            margin-bottom: 1rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .explanation ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin: 0;
+        }
+
+        .explanation li {
+            color: #2d3436;
+            margin-bottom: 0.5rem;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .explanation li:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <h1><i class="fas fa-database"></i> SQL Exercises</h1>
+                <ul>
+                    <li><a href="../index.html#home">Home</a></li>
+                    <li><a href="../index.html#exercises">Exercises</a></li>
+                    <li><a href="../index.html#solutions">Solutions</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <article class="post-content">
+            <a href="../index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </a>
+            
+            <h1>Solution 3: PostgreSQL Datatype Exercises</h1>
+            
+            <h2>Exercise 1: Basic Numeric Data Types</h2>
+            
+            <h3>1. CREATE the products table</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">CREATE TABLE products (
+    product_id integer,
+    product_name varchar(100),
+    list_price numeric(10,2),
+    stock_quantity integer,
+    weight_kg real
+);</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li><strong>integer</strong>: Whole number data type for IDs</li>
+                    <li><strong>varchar(100)</strong>: Variable length string with max 100 characters</li>
+                    <li><strong>numeric(10,2)</strong>: Precise decimal number with 10 total digits, 2 after decimal point</li>
+                    <li><strong>integer</strong>: Whole number data type for counts</li>
+                    <li><strong>real</strong>: Single-precision floating-point number for weights</li>
+                </ul>
+            </div>
+
+            <h3>2. INSERT data INTO the products table</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">INSERT INTO products (product_id, product_name, list_price, stock_quantity, weight_kg) VALUES
+(1, 'laptop abc', 12500000.50, 15, 2.15),
+(2, 'smartphone xyz', 7890000.00, 30, 0.20),
+(3, 'computer mouse', 250000.75, 100, 0.10);</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>We INSERT 3 products with appropriate data for each column</li>
+                    <li>Each product has a unique product_id value</li>
+                    <li>The list_price values are formatted as numeric with 2 decimal places</li>
+                </ul>
+            </div>
+
+            <h3>3. SELECT products WHERE stock_quantity is greater than 20</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT *
+FROM products
+WHERE stock_quantity > 20;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query filters products WHERE stock_quantity is greater than 20</li>
+                    <li>Based on our sample data, this would return 'smartphone xyz' and 'computer mouse'</li>
+                </ul>
+            </div>
+
+            <h3>4. Calculate the sum() of list_price of all products</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT sum(list_price) AS total_price
+FROM products;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>The sum() aggregate function adds up all the values in the list_price column</li>
+                    <li>For our sample data, the result would be 20640001.25</li>
+                </ul>
+            </div>
+
+            <h2>Exercise 2: Date and Time Data Types</h2>
+
+            <h3>1. CREATE the orders table</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">CREATE TABLE orders (
+    order_id serial,
+    customer_name varchar(100),
+    order_date date,
+    estimated_delivery_time timestamp,
+    order_creation_time timestamp with time zone
+);</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li><strong>serial</strong>: Automatically incrementing integer, perfect for IDs</li>
+                    <li><strong>date</strong>: Stores calendar date (year, month, day) without time</li>
+                    <li><strong>timestamp</strong>: Stores date and time without timezone information</li>
+                    <li><strong>timestamp with time zone</strong>: Stores date, time, and timezone information</li>
+                </ul>
+            </div>
+
+            <h3>2. INSERT data INTO the orders table</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">INSERT INTO orders (order_id, customer_name, order_date, estimated_delivery_time, order_creation_time) VALUES
+(101, 'nguyen van a', '2024-05-20', '2024-05-25 10:00:00', '2024-05-20 09:30:00+07'),
+(102, 'tran thi b', '2024-05-22', '2024-05-28 14:30:00', '2024-05-22 13:00:00+07'),
+(103, 'le van c', '2024-05-23', '2024-05-29 09:00:00', '2024-05-23 08:45:00+07');</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>We INSERT 3 orders, each with a customer name, order date, and delivery times</li>
+                    <li>For date, we use 'YYYY-MM-DD' format</li>
+                    <li>For timestamp, we use 'YYYY-MM-DD HH:MM:SS' format</li>
+                    <li>For timestamp with time zone, we add the timezone offset (+07)</li>
+                </ul>
+            </div>
+
+            <h3>3. SELECT all orders placed in May 2024</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT *
+FROM orders
+WHERE order_date BETWEEN '2024-05-01' AND '2024-05-31';</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query uses the BETWEEN operator to find orders with dates in May 2024</li>
+                    <li>Based on our sample data, this would return all 3 orders</li>
+                </ul>
+            </div>
+
+            <h3>4. Display order_id, customer_name, and only the order_date</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT 
+    order_id,
+    customer_name,
+    order_date
+FROM orders;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query SELECTs only the specific columns we need</li>
+                    <li>Since order_date is already a DATE type (without time), no additional formatting is needed</li>
+                </ul>
+            </div>
+
+            <h2>Exercise 3: Boolean and Text/Character Data Types</h2>
+
+            <h3>1. CREATE the my_employees table</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">CREATE TABLE my_employees (
+    employee_id serial,
+    full_name text,
+    email varchar(255),
+    is_active boolean,
+    country_code char(2)
+);</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li><strong>serial</strong>: Automatically incrementing integer, perfect for employee IDs</li>
+                    <li><strong>text</strong>: Variable length string with no specified limit</li>
+                    <li><strong>varchar(255)</strong>: Variable length string with max 255 characters</li>
+                    <li><strong>boolean</strong>: True/false value</li>
+                    <li><strong>char(2)</strong>: Fixed length string of exactly 2 characters</li>
+                </ul>
+            </div>
+
+            <h3>2. INSERT data INTO the my_employees table</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">INSERT INTO my_employees (full_name, email, is_active, country_code) VALUES
+('nguyen huu nghia', 'nghia.nh@example.com', TRUE, 'vn'),
+('john doe', 'john.doe@example.com', TRUE, 'us'),
+('jane smith', 'jane.smith@example.com', FALSE, 'uk');</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>We INSERT 3 employees with appropriate data for each column</li>
+                    <li>Two employees have is_active SET to TRUE</li>
+                    <li>One employee has is_active SET to FALSE</li>
+                    <li>Country codes are exactly 2 characters</li>
+                    <li>The employee_id will be automatically generated by the serial data type</li>
+                </ul>
+            </div>
+
+            <h3>3. SELECT all active my_employees</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT *
+FROM my_employees
+WHERE is_active = TRUE;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query filters for employees WHERE is_active is TRUE</li>
+                    <li>Based on our sample data, this would return 'nguyen huu nghia' and 'john doe'</li>
+                </ul>
+            </div>
+
+            <h3>4. SELECT full_name and email of all my_employees WHERE country_code is 'vn'</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT 
+    full_name,
+    email
+FROM my_employees
+WHERE country_code = 'vn';</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query SELECTs specific columns for employees WHERE country_code is 'vn'</li>
+                    <li>Based on our sample data, this would return only 'nguyen huu nghia'</li>
+                    <li>Note that with CHAR type, PostgreSQL will pad shorter strings with spaces, so we need to be careful with comparisons</li>
+                </ul>
+            </div>
+
+            <div class="navigation">
+                <a href="exercise-3.html" class="btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Exercise
+                </a>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SQL Exercises</h3>
+                    <p>A place to share SQL knowledge and exercises</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Links</h3>
+                    <ul>
+                        <li><a href="../index.html#home">Home</a></li>
+                        <li><a href="../index.html#exercises">Exercises</a></li>
+                        <li><a href="../index.html#solutions">Solutions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SQL Exercises and Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const code = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.innerHTML = '<i class="far fa-copy"></i> Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Handle scroll when clicking navbar links
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                if (href.includes('#')) {
+                    const [path, hash] = href.split('#');
+                    sessionStorage.setItem('scrollToHash', hash);
+                    window.location.href = path;
+                } else {
+                    window.location.href = href;
+                }
+            });
+        });
+
+        // Check and scroll to hash after page load
+        window.addEventListener('load', function() {
+            const hash = sessionStorage.getItem('scrollToHash');
+            if (hash) {
+                const element = document.getElementById(hash);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+                sessionStorage.removeItem('scrollToHash');
+            }
+        });
+    </script>
+</body>
+</html> 

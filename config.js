@@ -13,6 +13,13 @@ const config = {
             description: "Detailed guide for Exercise 2 with examples of GROUP BY and HAVING...",
             duration: "25 minutes",
             level: "Intermediate"
+        },
+        "solution-3": {
+            enabled: false,
+            title: "Solution 3: PostgreSQL Datatypes",
+            description: "Detailed guide for Exercise 3 with examples of using various PostgreSQL data types...",
+            duration: "30 minutes",
+            level: "Intermediate"
         }
     }
 }; 
