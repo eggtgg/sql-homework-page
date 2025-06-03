@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 4: PostgreSQL Basic Exercises - SQL Exercises</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <h1><i class="fas fa-database"></i> SQL Exercises</h1>
+                <ul>
+                    <li><a href="../index.html#home">Home</a></li>
+                    <li><a href="../index.html#exercises">Exercises</a></li>
+                    <li><a href="../index.html#solutions">Solutions</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <article class="post-content">
+            <a href="../index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </a>
+            
+            <h1>Exercise 4: PostgreSQL Basic Exercises (No JOIN, AS)</h1>
+            
+            <h2>Exercise Description</h2>
+            <p>Let's assume we have a table named shop_products with the following columns:</p>
+            <ul>
+                <li>id (integer, Primary Key, auto-incrementing)</li>
+                <li>product_name (varchar)</li>
+                <li>category (varchar)</li>
+                <li>price (decimal)</li>
+                <li>stock_quantity (integer)</li>
+                <li>date_added (date)</li>
+            </ul>
+
+            <h3>Table Creation and Sample Data</h3>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">CREATE TABLE shop_products (
+    id serial PRIMARY KEY,
+    product_name varchar(100),
+    category varchar(50),
+    price decimal(10, 2),
+    stock_quantity integer,
+    date_added date
+);
+
+INSERT INTO shop_products (product_name, category, price, stock_quantity, date_added) VALUES
+('Laptop ABC', 'Electronics', 1500.00, 50, '2023-01-15'),
+('Smartphone XYZ', 'Electronics', 800.00, 120, '2023-02-20'),
+('Mechanical Keyboard K7', 'Accessories', 120.00, 75, '2023-01-30'),
+('Wireless Mouse M1', 'Accessories', 35.00, 200, '2023-03-10'),
+('4K Smart TV Samsung', 'Electronics', 2200.00, 30, '2023-04-05'),
+('Bluetooth Headphones S2', 'Accessories', 75.00, 150, '2023-02-10'),
+('1TB SSD Drive', 'Components', 250.00, 60, '2023-03-25'),
+('HD Webcam Pro', 'Accessories', 90.00, 40, '2023-05-01'),
+('Tablet Alpha', 'Electronics', 1200.00, 25, '2023-04-15'),
+('SoundMax Speakers B1', 'Accessories', 55.00, 90, '2023-01-20');</code></pre>
+                </div>
+            </div>
+
+            <h2>🎯 Exercises</h2>
+            
+            <h3>Part 1: SELECT and FROM (Basic)</h3>
+            <ol>
+                <li>Display all information for all products in the shop_products table.</li>
+                <li>Display product_name and price for all products.</li>
+                <li>Display product_name and stock_quantity for all products.</li>
+            </ol>
+
+            <h3>Part 2: WHERE (Filtering Data)</h3>
+            <ol start="4">
+                <li>Display information for products in the 'Electronics' category.</li>
+                <li>Display product_name and price for products with a price greater than 1000.00.</li>
+                <li>Display products with a stock_quantity less than 50.</li>
+                <li>Display products that were added (date_added) before '2023-03-01'.</li>
+                <li>Display product_name and category for products with a price between 50.00 and 150.00 (inclusive).</li>
+                <li>Display products in the 'Accessories' category with a stock_quantity greater than 100.</li>
+                <li>Display products not in the 'Components' category.</li>
+            </ol>
+
+            <h3>Part 3: ORDER BY (Sorting Results)</h3>
+            <ol start="11">
+                <li>Display all products, sorted by price in ascending order.</li>
+                <li>Display all products, sorted by stock_quantity in descending order.</li>
+                <li>Display product_name and date_added for products in the 'Electronics' category, sorted by date_added from newest to oldest (descending).</li>
+                <li>Display products with a price over 100.00, sorted by category (A-Z, ascending) then by price in descending order.</li>
+            </ol>
+
+            <h3>Part 4: GROUP BY (Grouping Data)</h3>
+            <ol start="15">
+                <li>Count the number of products in each category. Display category and the product count.</li>
+                <li>Calculate the total stock_quantity for each category. Display category and the total stock quantity.</li>
+                <li>Find the average price of products in each category. Display category and the average price.</li>
+                <li>Find the highest price in each category. Display category and the highest price.</li>
+                <li>Find the earliest date_added (oldest) for each category. Display category and the earliest date added.</li>
+            </ol>
+
+            <h3>Part 5: HAVING (Filtering Groups)</h3>
+            <ol start="20">
+                <li>Display categories with a total stock_quantity greater than 150.</li>
+                <li>Display categories where the average product price is greater than 500.00.</li>
+                <li>Display categories with at least 3 products. (Use count(*))</li>
+                <li>Display categories where the highest product price in that category is less than 2000.00.</li>
+            </ol>
+
+            <h3>Part 6: Combining Clauses (Slightly More Advanced)</h3>
+            <ol start="24">
+                <li>Display product_name and price for products in the 'Accessories' category with a price under 100.00, sorted by price in ascending order.</li>
+                <li>Count the number of products in each category, displaying only categories with more than 2 products, and sort the results by product count in descending order.</li>
+                <li>Calculate the average price for products added (date_added) after '2023-02-01' for each category. Display only categories where this average price is greater than 100.00.</li>
+                <li>List the category names and the number of products in each category. Display only categories with a total stock_quantity greater than 100 AND an average product price in that category under 1000.00. Sort by category name (A-Z).</li>
+                <li>Find the category of the product with the highest price, and that category must have at least 2 products.</li>
+                <li>Display category and sum(stock_quantity) for each category. Display only categories where sum(stock_quantity) is greater than 150 AND avg(price) is less than 1000.00. Sort by category in ascending order.</li>
+            </ol>
+
+            <h3>Part 7: Combining WHERE and HAVING (Advanced)</h3>
+            <ol start="30">
+                <li>List category and max(price) for products added (date_added) after '2023-02-01'. Display only categories where this max(price) (of the filtered products) is less than 1800.00 AND there are at least 2 products (filtered by date) in that category. Sort by category.</li>
+                <li>Display category and avg(stock_quantity) for products with a price under 200.00. Only categories where this avg(stock_quantity) (of the filtered products) is greater than 70 AND the total number of products (filtered by price) is more than 1 should be displayed. Sort by avg(stock_quantity) in descending order.</li>
+                <li>For products in the 'Accessories' or 'Electronics' category AND with a stock_quantity greater than 40: find these categories. Display the category only if the min(price) of these (filtered) products is greater than 50.00 AND their sum(stock_quantity) (filtered) is greater than 100. Display category, min(price), and sum(stock_quantity). Sort by category.</li>
+            </ol>
+
+            <h2>📝 Hints and Notes:</h2>
+            <ul>
+                <li>When using GROUP BY, all columns in the SELECT list that are not aggregate functions (like count(), sum(), avg(), max(), min()) must be included in the GROUP BY clause.</li>
+                <li>WHERE is used to filter rows before they are grouped by GROUP BY.</li>
+                <li>HAVING is used to filter groups after they have been created by GROUP BY.</li>
+                <li>ORDER BY is usually placed at the very end of the query to sort the final result set.</li>
+            </ul>
+            <p>Happy practicing and effective learning!</p>
+
+            <div class="navigation" id="solution-button">
+                <!-- Solution button will be loaded dynamically -->
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SQL Exercises</h3>
+                    <p>A place to share SQL knowledge and exercises</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Links</h3>
+                    <ul>
+                        <li><a href="../index.html#home">Home</a></li>
+                        <li><a href="../index.html#exercises">Exercises</a></li>
+                        <li><a href="../index.html#solutions">Solutions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SQL Exercises and Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script src="../config.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <script>
+        // Function to load solution button based on config
+        function loadSolutionButton() {
+            const solutionButton = document.getElementById('solution-button');
+            if (config.solutions['solution-4'].enabled) {
+                solutionButton.innerHTML = `
+                    <a href="solution-4.html" class="btn">
+                        <i class="fas fa-code"></i>
+                        View Solution
+                    </a>
+                `;
+            } else {
+                solutionButton.innerHTML = `
+                    <div class="btn btn-disabled">
+                        <i class="fas fa-clock"></i>
+                        Solution is being updated
+                    </div>
+                `;
+            }
+        }
+
+        // Load solution button when page loads
+        document.addEventListener('DOMContentLoaded', loadSolutionButton);
+
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const code = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.innerHTML = '<i class="far fa-copy"></i> Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Handle scroll when clicking navbar links
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                if (href.includes('#')) {
+                    const [path, hash] = href.split('#');
+                    sessionStorage.setItem('scrollToHash', hash);
+                    window.location.href = path;
+                } else {
+                    window.location.href = href;
+                }
+            });
+        });
+
+        // Check and scroll to hash after page load
+        window.addEventListener('load', function() {
+            const hash = sessionStorage.getItem('scrollToHash');
+            if (hash) {
+                const element = document.getElementById(hash);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+                sessionStorage.removeItem('scrollToHash');
+            }
+        });
+    </script>
+</body>
+</html> 

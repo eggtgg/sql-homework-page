@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solution 4: PostgreSQL Basic Exercises - SQL Exercises</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <h1><i class="fas fa-database"></i> SQL Exercises</h1>
+                <ul>
+                    <li><a href="../index.html#home">Home</a></li>
+                    <li><a href="../index.html#exercises">Exercises</a></li>
+                    <li><a href="../index.html#solutions">Solutions</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <article class="post-content">
+            <a href="../index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </a>
+            
+            <h1>Solution 4: PostgreSQL Basic Exercises</h1>
+            
+            <h3>Part 1: SELECT and FROM (Basic)</h3>
+            
+            <p class="question">1. Display all information for all products in the shop_products table</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT id, product_name, category, price, stock_quantity, date_added
+FROM shop_products;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query selects all columns from the shop_products table</li>
+                    <li>It will return all rows in the table with complete information for each product</li>
+                </ul>
+            </div>
+
+            <p class="question">2. Display product_name and price for all products</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT product_name, price
+FROM shop_products;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query selects only the product_name and price columns</li>
+                    <li>It returns these two fields for all products in the table</li>
+                </ul>
+            </div>
+
+            <p class="question">3. Display product_name and stock_quantity for all products</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT product_name, stock_quantity
+FROM shop_products;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query selects only the product_name and stock_quantity columns</li>
+                    <li>It returns these two fields for all products in the table</li>
+                </ul>
+            </div>
+
+            <h3>Part 2: WHERE (Filtering Data)</h3>
+
+            <p class="question">4. Display information for products in the 'Electronics' category</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT id, product_name, category, price, stock_quantity, date_added
+FROM shop_products
+WHERE category = 'Electronics';</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query selects all columns for products where the category is exactly 'Electronics'</li>
+                    <li>The WHERE clause filters the results to only show rows matching the condition</li>
+                    <li>String comparisons in SQL are case-sensitive, so 'Electronics' must match exactly</li>
+                </ul>
+            </div>
+
+            <p class="question">5. Display product_name and price for products with a price greater than 1000.00</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT product_name, price
+FROM shop_products
+WHERE price > 1000.00;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query selects product_name and price for products with a price greater than 1000.00</li>
+                    <li>The > operator is used for the comparison</li>
+                    <li>Based on our sample data, this would return the Laptop ABC, 4K Smart TV Samsung, and Tablet Alpha</li>
+                </ul>
+            </div>
+
+            <p class="question">6. Display products with a stock_quantity less than 50</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT id, product_name, category, price, stock_quantity, date_added
+FROM shop_products
+WHERE stock_quantity < 50;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query selects all columns for products with stock_quantity less than 50</li>
+                    <li>It helps identify products that might need to be restocked soon</li>
+                    <li>Based on our sample data, this would return HD Webcam Pro and Tablet Alpha</li>
+                </ul>
+            </div>
+
+            <p class="question">7. Display products that were added (date_added) before '2023-03-01'</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT id, product_name, category, price, stock_quantity, date_added
+FROM shop_products
+WHERE date_added < '2023-03-01';</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query filters products added before March 1, 2023</li>
+                    <li>Date comparisons use the < operator with date values in 'YYYY-MM-DD' format</li>
+                    <li>This would return products added in January and February 2023</li>
+                </ul>
+            </div>
+
+            <p class="question">8. Display product_name and category for products with a price between 50.00 and 150.00 (inclusive)</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT product_name, category, price
+FROM shop_products
+WHERE price >= 50.00 AND price <= 150.00;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query finds products with prices in a specific range (50-150)</li>
+                    <li>The AND operator combines two conditions, both of which must be true</li>
+                    <li>This would return Mechanical Keyboard K7, Bluetooth Headphones S2, and SoundMax Speakers B1</li>
+                </ul>
+            </div>
+
+            <p class="sub-question">Alternative using BETWEEN operator</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT product_name, category, price
+FROM shop_products
+WHERE price BETWEEN 50.00 AND 150.00;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>The BETWEEN operator is a shorthand for >= AND <= conditions</li>
+                    <li>It's inclusive, meaning it includes the boundary values (50.00 and 150.00)</li>
+                    <li>This produces the same result as the previous query</li>
+                </ul>
+            </div>
+
+            <p class="question">9. Display products in the 'Accessories' category with a stock_quantity greater than 100</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT id, product_name, category, price, stock_quantity, date_added
+FROM shop_products
+WHERE category = 'Accessories' AND stock_quantity > 100;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query combines two conditions with AND: category must be 'Accessories' AND stock_quantity must be greater than 100</li>
+                    <li>Both conditions must be true for a row to be included in the results</li>
+                    <li>Based on our sample data, this would return Wireless Mouse M1 and Bluetooth Headphones S2</li>
+                </ul>
+            </div>
+
+            <p class="question">10. Display products not in the 'Components' category</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT id, product_name, category, price, stock_quantity, date_added
+FROM shop_products
+WHERE category != 'Components';</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query uses the != operator (not equal) to exclude products in the 'Components' category</li>
+                    <li>It will return all products except those in the 'Components' category</li>
+                </ul>
+            </div>
+
+            <p class="sub-question">Alternative ways to express "not equal"</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT id, product_name, category, price, stock_quantity, date_added
+FROM shop_products
+WHERE category <> 'Components';</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>The <> operator is the standard SQL "not equal" operator</li>
+                    <li>It functions exactly the same as != in PostgreSQL</li>
+                </ul>
+            </div>
+
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT id, product_name, category, price, stock_quantity, date_added
+FROM shop_products
+WHERE NOT category = 'Components';</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>The NOT operator negates the condition that follows it</li>
+                    <li>This is a third way to express "not equal" in SQL</li>
+                    <li>All three queries produce the same result</li>
+                </ul>
+            </div>
+
+            <h3>Part 3: ORDER BY (Sorting Results)</h3>
+
+            <p class="question">11. Display all products, sorted by price in ascending order</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT id, product_name, category, price, stock_quantity, date_added
+FROM shop_products
+ORDER BY price ASC;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>The ORDER BY clause sorts the results based on the specified column</li>
+                    <li>ASC means ascending order (lowest to highest), which is the default if not specified</li>
+                    <li>This would sort products from lowest price to highest price</li>
+                </ul>
+            </div>
+
+            <p class="question">12. Display all products, sorted by stock_quantity in descending order</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT id, product_name, category, price, stock_quantity, date_added
+FROM shop_products
+ORDER BY stock_quantity DESC;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>DESC means descending order (highest to lowest)</li>
+                    <li>This would sort products from highest stock quantity to lowest</li>
+                    <li>Useful for quickly seeing which products have the most inventory</li>
+                </ul>
+            </div>
+
+            <p class="question">13. Display product_name and date_added for products in the 'Electronics' category, sorted by date_added from newest to oldest (descending)</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT product_name, date_added
+FROM shop_products
+WHERE category = 'Electronics'
+ORDER BY date_added DESC;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query first filters for only 'Electronics' products using WHERE</li>
+                    <li>Then it sorts the results by date_added in descending order (newest first)</li>
+                    <li>The query combines filtering (WHERE) and sorting (ORDER BY)</li>
+                </ul>
+            </div>
+
+            <p class="question">14. Display products with a price over 100.00, sorted by category (A-Z, ascending) then by price in descending order</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT id, product_name, category, price, stock_quantity, date_added
+FROM shop_products
+WHERE price > 100.00
+ORDER BY category ASC, price DESC;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query first filters for products with price > 100.00</li>
+                    <li>Then it sorts by category alphabetically (A-Z)</li>
+                    <li>Within each category, it sorts by price in descending order (highest to lowest)</li>
+                    <li>This demonstrates multi-level sorting with different directions</li>
+                </ul>
+            </div>
+
+            <h3>Part 4: GROUP BY (Grouping Data)</h3>
+
+            <p class="question">15. Count the number of products in each category. Display category and the product count</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT category, count(*)
+FROM shop_products
+GROUP BY category;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>The GROUP BY clause groups rows that have the same category value</li>
+                    <li>count(*) counts the number of rows in each group</li>
+                    <li>This shows how many products are in each category</li>
+                </ul>
+            </div>
+
+            <p class="question">16. Calculate the total stock_quantity for each category. Display category and the total stock quantity</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT category, sum(stock_quantity)
+FROM shop_products
+GROUP BY category;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>The sum() aggregate function adds up all the stock_quantity values within each category group</li>
+                    <li>This shows the total inventory for each product category</li>
+                    <li>Useful for inventory management and planning</li>
+                </ul>
+            </div>
+
+            <p class="question">17. Find the average price of products in each category. Display category and the average price</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT category, avg(price)
+FROM shop_products
+GROUP BY category;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>The avg() aggregate function calculates the average price within each category group</li>
+                    <li>This shows the average price point for products in each category</li>
+                    <li>Useful for pricing analysis and strategy</li>
+                </ul>
+            </div>
+
+            <p class="question">18. Find the highest price in each category. Display category and the highest price</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT category, max(price)
+FROM shop_products
+GROUP BY category;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>The max() aggregate function finds the highest price value within each category group</li>
+                    <li>This shows the most expensive product in each category</li>
+                    <li>Useful for understanding the price range within categories</li>
+                </ul>
+            </div>
+
+            <p class="question">19. Find the earliest date_added (oldest) for each category. Display category and the earliest date added</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT category, min(date_added)
+FROM shop_products
+GROUP BY category;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>The min() aggregate function finds the earliest (minimum) date within each category group</li>
+                    <li>This shows when the first product in each category was added to the inventory</li>
+                    <li>Useful for tracking how long each product category has been carried</li>
+                </ul>
+            </div>
+
+            <h3>Part 5: HAVING (Filtering Groups)</h3>
+
+            <p class="question">20. Display categories with a total stock_quantity greater than 150</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT category, sum(stock_quantity)
+FROM shop_products
+GROUP BY category
+HAVING sum(stock_quantity) > 150;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>The HAVING clause filters groups after they have been created by GROUP BY</li>
+                    <li>This query only shows categories where the total inventory is greater than 150 units</li>
+                    <li>HAVING is used with aggregate functions, while WHERE filters individual rows</li>
+                </ul>
+            </div>
+
+            <p class="question">21. Display categories where the average product price is greater than 500.00</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT category, avg(price)
+FROM shop_products
+GROUP BY category
+HAVING avg(price) > 500.00;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query filters for categories with an average price greater than 500.00</li>
+                    <li>It helps identify higher-end product categories</li>
+                    <li>Based on our sample data, this would likely return the 'Electronics' category</li>
+                </ul>
+            </div>
+
+            <p class="question">22. Display categories with at least 3 products</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT category, count(*)
+FROM shop_products
+GROUP BY category
+HAVING count(*) >= 3;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query filters for categories that contain at least 3 products</li>
+                    <li>It helps identify more diverse product categories</li>
+                    <li>Based on our sample data, this would likely return 'Electronics' and 'Accessories'</li>
+                </ul>
+            </div>
+
+            <p class="question">23. Display categories where the highest product price in that category is less than 2000.00</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT category, max(price)
+FROM shop_products
+GROUP BY category
+HAVING max(price) < 2000.00;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query filters for categories where even the most expensive product is less than 2000.00</li>
+                    <li>It helps identify more budget-friendly product categories</li>
+                    <li>Based on our sample data, this would likely return 'Accessories' and 'Components'</li>
+                </ul>
+            </div>
+
+            <h3>Part 6: Combining Clauses (Slightly More Advanced)</h3>
+
+            <p class="question">24. Display product_name and price for products in the 'Accessories' category with a price under 100.00, sorted by price in ascending order</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT product_name, price
+FROM shop_products
+WHERE category = 'Accessories' AND price < 100.00
+ORDER BY price ASC;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query combines multiple clauses: WHERE for filtering and ORDER BY for sorting</li>
+                    <li>It finds budget-friendly accessories (under $100) and sorts them from cheapest to most expensive</li>
+                    <li>Based on our sample data, this would return Wireless Mouse M1, SoundMax Speakers B1, and HD Webcam Pro</li>
+                </ul>
+            </div>
+
+            <p class="question">25. Count the number of products in each category, displaying only categories with more than 2 products, and sort the results by product count in descending order</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT category, count(*)
+FROM shop_products
+GROUP BY category
+HAVING count(*) > 2
+ORDER BY count(*) DESC;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query combines GROUP BY, HAVING, and ORDER BY clauses</li>
+                    <li>It finds categories with more than 2 products and sorts them by product count (highest first)</li>
+                    <li>The query shows which categories have the most product variety</li>
+                </ul>
+            </div>
+
+            <p class="question">26. Calculate the average price for products added (date_added) after '2023-02-01' for each category. Display only categories where this average price is greater than 100.00</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT category, avg(price)
+FROM shop_products
+WHERE date_added > '2023-02-01'
+GROUP BY category
+HAVING avg(price) > 100.00;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query combines WHERE, GROUP BY, and HAVING clauses</li>
+                    <li>First, it filters for products added after February 1, 2023 (WHERE)</li>
+                    <li>Then, it groups these filtered products by category</li>
+                    <li>Finally, it shows only categories where the average price of these newer products is over $100</li>
+                </ul>
+            </div>
+
+            <p class="question">27. List the category names and the number of products in each category. Display only categories with a total stock_quantity greater than 100 AND an average product price in that category under 1000.00. Sort by category name (A-Z)</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT category, count(*), sum(stock_quantity), avg(price)
+FROM shop_products
+GROUP BY category
+HAVING sum(stock_quantity) > 100 AND avg(price) < 1000.00
+ORDER BY category ASC;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query uses GROUP BY with multiple aggregate functions</li>
+                    <li>It shows categories with good inventory (over 100 units) but moderate pricing (under $1000 average)</li>
+                    <li>The query includes count(*), sum(), and avg() in the results for better context</li>
+                    <li>Results are sorted alphabetically by category name</li>
+                </ul>
+            </div>
+
+            <p class="question">28. Find the category of the product with the highest price, and that category must have at least 2 products</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT category, max(price)
+FROM shop_products
+GROUP BY category
+HAVING count(*) >= 2
+ORDER BY max(price) DESC
+LIMIT 1;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query combines GROUP BY, HAVING, ORDER BY, and LIMIT clauses</li>
+                    <li>It finds categories with at least 2 products, sorts them by highest price, and returns only the top result</li>
+                    <li>The LIMIT 1 clause ensures only the single category with the highest-priced product is returned</li>
+                    <li>Based on our sample data, this would likely return the 'Electronics' category</li>
+                </ul>
+            </div>
+
+            <p class="question">29. Display category and sum(stock_quantity) for each category. Display only categories where sum(stock_quantity) is greater than 150 AND avg(price) is less than 1000.00. Sort by category in ascending order</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT category, sum(stock_quantity), avg(price)
+FROM shop_products
+GROUP BY category
+HAVING sum(stock_quantity) > 150 AND avg(price) < 1000.00
+ORDER BY category ASC;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query finds categories with substantial inventory (over 150 units) and moderate average pricing</li>
+                    <li>It includes both sum() and avg() in the results to show the values being filtered on</li>
+                    <li>Results are sorted alphabetically by category name</li>
+                    <li>Based on our sample data, this would likely return the 'Accessories' category</li>
+                </ul>
+            </div>
+
+            <h3>Part 7: Combining WHERE and HAVING (Advanced)</h3>
+
+            <p class="question">30. List category and max(price) for products added (date_added) after '2023-02-01'. Display only categories where this max(price) (of the filtered products) is less than 1800.00 AND there are at least 2 products (filtered by date) in that category. Sort by category</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT category, max(price)
+FROM shop_products
+WHERE date_added > '2023-02-01'
+GROUP BY category
+HAVING max(price) < 1800.00 AND count(*) >= 2
+ORDER BY category ASC;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This advanced query demonstrates the difference between WHERE and HAVING:</li>
+                    <li>WHERE filters individual rows before grouping (only products added after Feb 1, 2023)</li>
+                    <li>HAVING filters groups after they're created (only categories with max price < 1800 AND at least 2 products)</li>
+                    <li>The count(*) in HAVING only counts rows that passed the WHERE filter</li>
+                </ul>
+            </div>
+
+            <p class="question">31. Display category and avg(stock_quantity) for products with a price under 200.00. Only categories where this avg(stock_quantity) (of the filtered products) is greater than 70 AND the total number of products (filtered by price) is more than 1 should be displayed. Sort by avg(stock_quantity) in descending order</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT category, avg(stock_quantity)
+FROM shop_products
+WHERE price < 200.00
+GROUP BY category
+HAVING avg(stock_quantity) > 70 AND count(*) > 1
+ORDER BY avg(stock_quantity) DESC;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This query first filters for budget-friendly products (under $200) using WHERE</li>
+                    <li>Then it groups these filtered products by category</li>
+                    <li>The HAVING clause ensures we only see categories where:</li>
+                    <li>- The average stock quantity of these budget products is over 70 units</li>
+                    <li>- There are at least 2 such products in the category</li>
+                    <li>Results are sorted by average stock quantity (highest first)</li>
+                </ul>
+            </div>
+
+            <p class="question">32. For products in the 'Accessories' or 'Electronics' category AND with a stock_quantity greater than 40: find these categories. Display the category only if the min(price) of these (filtered) products is greater than 50.00 AND their sum(stock_quantity) (filtered) is greater than 100. Display category, min(price), and sum(stock_quantity). Sort by category</p>
+            <div class="sql-code">
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i>
+                        Copy
+                    </button>
+                    <pre><code class="language-sql">SELECT category, min(price), sum(stock_quantity)
+FROM shop_products
+WHERE (category = 'Accessories' OR category = 'Electronics')
+  AND stock_quantity > 40
+GROUP BY category
+HAVING min(price) > 50.00 AND sum(stock_quantity) > 100
+ORDER BY category ASC;</code></pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <p>Explanation:</p>
+                <ul>
+                    <li>This complex query combines multiple filtering conditions:</li>
+                    <li>WHERE filters for specific categories ('Accessories' or 'Electronics') with stock > 40</li>
+                    <li>GROUP BY creates a group for each category that passed the WHERE filter</li>
+                    <li>HAVING ensures the cheapest product is still over $50 AND total stock is over 100 units</li>
+                    <li>The query shows categories with well-stocked, higher-value products</li>
+                </ul>
+            </div>
+
+            <div class="navigation">
+                <a href="exercise-4.html" class="btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Exercise
+                </a>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SQL Exercises</h3>
+                    <p>A place to share SQL knowledge and exercises</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Links</h3>
+                    <ul>
+                        <li><a href="../index.html#home">Home</a></li>
+                        <li><a href="../index.html#exercises">Exercises</a></li>
+                        <li><a href="../index.html#solutions">Solutions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SQL Exercises and Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const code = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.innerHTML = '<i class="far fa-copy"></i> Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Handle scroll when clicking navbar links
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                if (href.includes('#')) {
+                    const [path, hash] = href.split('#');
+                    sessionStorage.setItem('scrollToHash', hash);
+                    window.location.href = path;
+                } else {
+                    window.location.href = href;
+                }
+            });
+        });
+
+        // Check and scroll to hash after page load
+        window.addEventListener('load', function() {
+            const hash = sessionStorage.getItem('scrollToHash');
+            if (hash) {
+                const element = document.getElementById(hash);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+                sessionStorage.removeItem('scrollToHash');
+            }
+        });
+    </script>
+</body>
+</html> 

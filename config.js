@@ -15,10 +15,17 @@ const config = {
             level: "Intermediate"
         },
         "solution-3": {
-            enabled: false,
+            enabled: true,
             title: "Solution 3: PostgreSQL Datatypes",
             description: "Detailed guide for Exercise 3 with examples of using various PostgreSQL data types...",
             duration: "30 minutes",
+            level: "Intermediate"
+        },
+        "solution-4": {
+            enabled: true,
+            title: "Solution 4: PostgreSQL Basic Exercises",
+            description: "Detailed guide for Exercise 4 with examples of basic PostgreSQL queries including WHERE, GROUP BY, HAVING, and more...",
+            duration: "35 minutes",
             level: "Intermediate"
         }
     }
