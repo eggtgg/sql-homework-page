@@ -85,6 +85,18 @@
                         </div>
                         <a href="posts/exercise-4.html" class="btn">Read More</a>
                     </article>
+                    <article class="post-card">
+                        <div class="post-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <h3>Exercise 5: Database Setup and JOINs</h3>
+                        <p>Set up a music playlist database, insert sample data, and solve multi-level SQL exercises involving JOINs, GROUP BY, and HAVING. Practice with real schema and data.</p>
+                        <div class="post-meta">
+                            <span><i class="fas fa-clock"></i> 40 minutes</span>
+                            <span><i class="fas fa-signal"></i> Intermediate</span>
+                        </div>
+                        <a href="posts/exercise-5.html" class="btn">Read More</a>
+                    </article>
                 </div>
             </div>
         </section>
@@ -184,16 +196,28 @@
         // Load solutions when page loads
         document.addEventListener('DOMContentLoaded', loadSolutions);
 
-        // Handle click for hero section buttons
-        document.querySelectorAll('.hero-buttons a').forEach(link => {
+        // Handle click for navigation links (nav a) and hero section buttons
+        document.querySelectorAll('nav a, .hero-buttons a').forEach(link => {
             link.addEventListener('click', function(e) {
-                e.preventDefault();
                 const href = this.getAttribute('href');
-                if (href.startsWith('#')) {
-                    const targetId = href.substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                // Nếu là anchor tới section trên index.html
+                if (href.startsWith('#') || href.includes('index.html#')) {
+                    e.preventDefault();
+                    let hash = '';
+                    if (href.startsWith('#')) {
+                        hash = href.substring(1);
+                    } else {
+                        hash = href.split('#')[1];
+                    }
+                    // Nếu đã ở index.html
+                    if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname === '/index.html') {
+                        const targetElement = document.getElementById(hash);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    } else {
+                        sessionStorage.setItem('scrollToHash', hash);
+                        window.location.href = 'index.html';
                     }
                 }
             });
@@ -211,6 +235,25 @@
                 }
                 sessionStorage.removeItem('scrollToHash');
             }
+        });
+
+        // Add active class to navigation items on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').replace('index.html#', '').replace('#', '') === current) {
+                    link.classList.add('active');
+                }
+            });
         });
     </script>
 </body>

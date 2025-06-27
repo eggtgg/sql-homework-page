@@ -27,6 +27,13 @@ const config = {
             description: "Detailed guide for Exercise 4 with examples of basic PostgreSQL queries including WHERE, GROUP BY, HAVING, and more...",
             duration: "35 minutes",
             level: "Intermediate"
+        },
+        "solution-5": {
+            enabled: true,
+            title: "Solution 5: Database Setup and JOINs",
+            description: "Guide for Exercise 5 with database setup, data insertion, and advanced JOIN, GROUP BY, and HAVING queries on a music playlist schema. Includes table creation, sample data, and multi-level SQL challenges.",
+            duration: "40 minutes",
+            level: "Intermediate"
         }
     }
 }; 

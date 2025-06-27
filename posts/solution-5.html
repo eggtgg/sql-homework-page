@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solution 5: Database Setup and JOINs - SQL Exercises</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <h1><i class="fas fa-database"></i> SQL Exercises</h1>
+                <ul>
+                    <li><a href="../index.html#home">Home</a></li>
+                    <li><a href="../index.html#exercises">Exercises</a></li>
+                    <li><a href="../index.html#solutions">Solutions</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <article class="post-content">
+            <a href="../index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </a>
+            <h1>Solution 5: Database Setup and JOINs</h1>
+            <h2>SQL Answers and Detailed Explanations</h2>
+            <p>Below are the detailed answers and the logic behind each query for the SQL practice questions.</p>
+
+            <h2>Level 1: Basic INNER JOINs</h2>
+            <ol>
+                <li>
+                    <strong>List all songs and their corresponding album names.</strong>
+                    <div class="sql-code">
+                        <div class="code-block">
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <i class="far fa-copy"></i>
+                                Copy
+                            </button>
+                            <pre><code class="language-sql">SELECT s.song_name, a.album_name, a.artist
+FROM songs s
+INNER JOIN albums a ON s.album_id = a.album_id;</code></pre>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <p><strong>Explanation:</strong></p>
+                        <ul>
+                            <li><strong>Objective:</strong> To retrieve information from two different tables (songs and albums) and combine them.</li>
+                            <li><strong>FROM songs s:</strong> Starts the query from the songs table and gives it an alias <code>s</code> for brevity.</li>
+                            <li><strong>INNER JOIN albums a ON s.album_id = a.album_id:</strong> Joins the songs table (<code>s</code>) with the albums table (<code>a</code>). The join condition <code>ON s.album_id = a.album_id</code> means that only rows sharing the same album_id in both tables will be matched.</li>
+                            <li><strong>SELECT s.song_name, a.album_name, a.artist:</strong> Selects and displays the song_name column from the songs table, and the album_name and artist columns from the albums table.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <strong>List all users and the IDs of the playlists they have created.</strong>
+                    <div class="sql-code">
+                        <div class="code-block">
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <i class="far fa-copy"></i>
+                                Copy
+                            </button>
+                            <pre><code class="language-sql">SELECT u.user_name, p.playlist_id, p.date_created
+FROM users u
+INNER JOIN playlists p ON u.user_id = p.user_id;</code></pre>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <p><strong>Explanation:</strong></p>
+                        <ul>
+                            <li>This query is similar to question 1. It joins the users (<code>u</code>) and playlists (<code>p</code>) tables on their common column, user_id, to find out which playlists belong to which users.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <strong>Show the names of all songs that are in the playlist with playlist_id = 4.</strong>
+                    <div class="sql-code">
+                        <div class="code-block">
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <i class="far fa-copy"></i>
+                                Copy
+                            </button>
+                            <pre><code class="language-sql">SELECT s.song_name
+FROM playlist_details pd
+INNER JOIN songs s ON pd.song_id = s.song_id
+WHERE pd.playlist_id = 4;</code></pre>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <p><strong>Explanation:</strong></p>
+                        <ul>
+                            <li><strong>INNER JOIN:</strong> Joins the playlist_details table (which contains the playlist-song relationship) with the songs table (which contains song names) on song_id.</li>
+                            <li><strong>WHERE pd.playlist_id = 4:</strong> After joining, the WHERE clause is used to filter the results, keeping only the rows where the playlist_id in the playlist_details table is 4.</li>
+                        </ul>
+                    </div>
+                </li>
+            </ol>
+
+            <h2>Level 2: Combining JOINs with WHERE and ORDER BY</h2>
+            <ol start="4">
+                <li>
+                    <strong>List all songs found in playlists created by the user 'Alice'.</strong>
+                    <div class="sql-code">
+                        <div class="code-block">
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <i class="far fa-copy"></i>
+                                Copy
+                            </button>
+                            <pre><code class="language-sql">SELECT u.user_name, p.playlist_id, s.song_name
+FROM users u
+INNER JOIN playlists p ON u.user_id = p.user_id
+INNER JOIN playlist_details pd ON p.playlist_id = pd.playlist_id
+INNER JOIN songs s ON pd.song_id = s.song_id
+WHERE u.user_name = 'Alice';</code></pre>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <p><strong>Explanation:</strong></p>
+                        <ul>
+                            <li>This is a multi-table join chain:</li>
+                            <li>users is joined with playlists to find 'Alice''s playlists.</li>
+                            <li>The result is then joined with playlist_details to find the song_ids within those playlists.</li>
+                            <li>Finally, it's joined with songs to get the song_name from the found song_ids.</li>
+                            <li><strong>WHERE u.user_name = 'Alice':</strong> The filter condition is applied to limit the results to only the user 'Alice'.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <strong>List all songs by the artist 'Billie Eilish', ordered alphabetically by song name.</strong>
+                    <div class="sql-code">
+                        <div class="code-block">
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <i class="far fa-copy"></i>
+                                Copy
+                            </button>
+                            <pre><code class="language-sql">SELECT s.song_name, a.album_name
+FROM songs s
+INNER JOIN albums a ON s.album_id = a.album_id
+WHERE a.artist = 'Billie Eilish'
+ORDER BY s.song_name ASC;</code></pre>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <p><strong>Explanation:</strong></p>
+                        <ul>
+                            <li><strong>WHERE a.artist = 'Billie Eilish':</strong> Filters for albums by 'Billie Eilish'.</li>
+                            <li><strong>ORDER BY s.song_name ASC:</strong> Sorts the final result set by the song_name column in ascending order (A-Z). ASC is short for ascending.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <strong>Find all songs that were added to any playlist during May 2025.</strong>
+                    <div class="sql-code">
+                        <div class="code-block">
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <i class="far fa-copy"></i>
+                                Copy
+                            </button>
+                            <pre><code class="language-sql">SELECT s.song_name, pd.date_added
+FROM songs s
+INNER JOIN playlist_details pd ON s.song_id = pd.song_id
+WHERE pd.date_added BETWEEN '2025-05-01' AND '2025-05-31';</code></pre>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <p><strong>Explanation:</strong></p>
+                        <ul>
+                            <li><strong>WHERE pd.date_added BETWEEN '2025-05-01' AND '2025-05-31':</strong> Uses the BETWEEN ... AND ... operator to filter for all records where the date_added falls within the range from the first day to the last day of May 2025.</li>
+                        </ul>
+                    </div>
+                </li>
+            </ol>
+
+            <h2>Level 3: Aggregate Functions, GROUP BY, and HAVING</h2>
+            <ol start="7">
+                <li>
+                    <strong>Count the number of songs in each playlist. Display the playlist_id and the song count, ordered from the playlist with the most songs to the least.</strong>
+                    <div class="sql-code">
+                        <div class="code-block">
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <i class="far fa-copy"></i>
+                                Copy
+                            </button>
+                            <pre><code class="language-sql">SELECT
+    p.playlist_id,
+    count(pd.song_id) AS number_of_songs
+FROM playlists p
+INNER JOIN playlist_details pd ON p.playlist_id = pd.playlist_id
+GROUP BY p.playlist_id
+ORDER BY number_of_songs DESC;</code></pre>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <p><strong>Explanation:</strong></p>
+                        <ul>
+                            <li><strong>count(pd.song_id):</strong> This is an aggregate function that counts the number of non-null song_ids. <code>AS number_of_songs</code> gives this resulting column a name.</li>
+                            <li><strong>GROUP BY p.playlist_id:</strong> This clause groups all rows with the same playlist_id into a single summary row. The count() function is then applied to each of these groups.</li>
+                            <li><strong>ORDER BY number_of_songs DESC:</strong> Sorts the result set by the newly created number_of_songs column in descending order (DESC is short for descending).</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <strong>For each user, count the total number of songs they have across all of their playlists.</strong>
+                    <div class="sql-code">
+                        <div class="code-block">
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <i class="far fa-copy"></i>
+                                Copy
+                            </button>
+                            <pre><code class="language-sql">SELECT
+    u.user_name,
+    count(pd.song_id) AS total_songs_in_playlists
+FROM users u
+INNER JOIN playlists p ON u.user_id = p.user_id
+INNER JOIN playlist_details pd ON p.playlist_id = pd.playlist_id
+GROUP BY u.user_name;</code></pre>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <p><strong>Explanation:</strong></p>
+                        <ul>
+                            <li>Similar to question 7, but this time we join across three tables to link users to songs.</li>
+                            <li><strong>GROUP BY u.user_name:</strong> Groups all songs by the user's name, and the count() function then counts the number of songs within each group (for each user).</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <strong>Find the users who have more than 3 songs in total across all their playlists.</strong>
+                    <div class="sql-code">
+                        <div class="code-block">
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <i class="far fa-copy"></i>
+                                Copy
+                            </button>
+                            <pre><code class="language-sql">SELECT
+    u.user_name,
+    count(pd.song_id) AS total_songs
+FROM users u
+INNER JOIN playlists p ON u.user_id = p.user_id
+INNER JOIN playlist_details pd ON p.playlist_id = pd.playlist_id
+GROUP BY u.user_name
+HAVING count(pd.song_id) > 3;</code></pre>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <p><strong>Explanation:</strong></p>
+                        <ul>
+                            <li><strong>HAVING count(pd.song_id) > 3:</strong> The HAVING clause is used to filter groups after the GROUP BY has been applied. WHERE filters individual rows before grouping, while HAVING filters the groups themselves. Here, it only keeps the groups (users) with a total song count greater than 3.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <strong>Find the artist with the most songs in 'David Moe''s playlists. Display the artist's name and the count of their songs.</strong>
+                    <div class="sql-code">
+                        <div class="code-block">
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <i class="far fa-copy"></i>
+                                Copy
+                            </button>
+                            <pre><code class="language-sql">SELECT
+    a.artist,
+    count(s.song_id) AS song_count
+FROM users u
+INNER JOIN playlists p ON u.user_id = p.user_id
+INNER JOIN playlist_details pd ON p.playlist_id = pd.playlist_id
+INNER JOIN songs s ON pd.song_id = s.song_id
+INNER JOIN albums a ON s.album_id = a.album_id
+WHERE u.user_name = 'David Moe'
+GROUP BY a.artist
+ORDER BY song_count DESC
+LIMIT 1;</code></pre>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <p><strong>Explanation:</strong></p>
+                        <ul>
+                            <li>This is the most complex query, combining all concepts:</li>
+                            <li><strong>FROM ... JOIN ...:</strong> All five tables are joined to establish the link from user -> playlist -> song -> album -> artist.</li>
+                            <li><strong>WHERE u.user_name = 'David Moe':</strong> Filters the data to include only records related to 'David Moe'.</li>
+                            <li><strong>GROUP BY a.artist:</strong> Groups the songs by the artist's name.</li>
+                            <li><strong>count(s.song_id):</strong> Counts the number of songs for each artist within these groups.</li>
+                            <li><strong>ORDER BY song_count DESC:</strong> Sorts the artists by their song count in descending order.</li>
+                            <li><strong>LIMIT 1:</strong> Retrieves only the top row after sorting, which corresponds to the artist with the most songs.</li>
+                        </ul>
+                    </div>
+                </li>
+            </ol>
+
+            <div class="navigation">
+                <a href="exercise-5.html" class="btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Exercise
+                </a>
+            </div>
+        </article>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SQL Exercises</h3>
+                    <p>A place to share SQL knowledge and exercises</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Links</h3>
+                    <ul>
+                        <li><a href="../index.html#home">Home</a></li>
+                        <li><a href="../index.html#exercises">Exercises</a></li>
+                        <li><a href="../index.html#solutions">Solutions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SQL Exercises and Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="../script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const code = codeBlock.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.innerHTML = '<i class="far fa-copy"></i> Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+        // Handle scroll when clicking navbar links (đồng bộ với index.html)
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#') || href.includes('index.html#')) {
+                    e.preventDefault();
+                    let hash = '';
+                    if (href.startsWith('#')) {
+                        hash = href.substring(1);
+                    } else {
+                        hash = href.split('#')[1];
+                    }
+                    // Nếu đã ở index.html
+                    if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname === '/index.html') {
+                        const targetElement = document.getElementById(hash);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    } else {
+                        sessionStorage.setItem('scrollToHash', hash);
+                        window.location.href = '../index.html';
+                    }
+                }
+            });
+        });
+        // Check and scroll to hash after page load
+        window.addEventListener('load', function() {
+            const hash = sessionStorage.getItem('scrollToHash');
+            if (hash) {
+                const element = document.getElementById(hash);
+                if (element) {
+                    setTimeout(() => {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                }
+                sessionStorage.removeItem('scrollToHash');
+            }
+        });
+    </script>
+</body>
+</html> 
